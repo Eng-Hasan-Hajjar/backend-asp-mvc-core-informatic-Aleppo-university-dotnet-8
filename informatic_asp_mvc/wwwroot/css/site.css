@@ -1,0 +1,103 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+
+
+
+
+
+/* wwwroot/css/site.css */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Tajawal', sans-serif;
+}
+
+body {
+    background: linear-gradient(45deg, #1e3c72, #2a5298);
+    color: #333;
+    min-height: 100vh;
+    padding: 40px;
+}
+
+.container {
+    max-width: 500px;
+    margin: auto;
+    background: #fff;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+h1, h2 {
+    text-align: center;
+    color: #1e3c72;
+    margin-bottom: 20px;
+}
+
+.input-box {
+    margin-bottom: 20px;
+    position: relative;
+}
+
+    .input-box input {
+        width: 100%;
+        padding: 10px;
+        font-size: 1em;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+    }
+
+button {
+    width: 100%;
+    padding: 10px;
+    background: #1e3c72;
+    border: none;
+    border-radius: 8px;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+    button:hover {
+        background: #2a5298;
+    }
+
+a {
+    color: #1e3c72;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+    a:hover {
+        text-decoration: underline;
+    }
+
+.error-message {
+    color: #e74c3c;
+    font-size: 0.9em;
+    margin-top: 10px;
+    text-align: center;
+}

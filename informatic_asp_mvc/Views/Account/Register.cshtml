@@ -1,0 +1,20 @@
+﻿@model informatic_asp_mvc.Models.LoginRegisterViewModel
+
+<div class="container">
+    <h2>إنشاء حساب</h2>
+
+    <form asp-action="Register" method="post">
+        <div class="input-box">
+            <input asp-for="Username" placeholder="اسم المستخدم" required />
+        </div>
+        <div class="input-box">
+            <input asp-for="Password" type="password" placeholder="كلمة المرور" required />
+        </div>
+        <button type="submit">تسجيل</button>
+
+        @if (ViewBag.Error != null)
+        {
+            <p class="error-message">@ViewBag.Error</p>
+        }
+    </form>
+</div>

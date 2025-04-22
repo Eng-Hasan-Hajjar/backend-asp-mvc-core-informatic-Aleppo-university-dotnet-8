@@ -1,20 +1,45 @@
 ﻿@model informatic_asp_mvc.Models.LoginRegisterViewModel
 
-<div class="container">
-    <h2>إنشاء حساب</h2>
+<div class="container mt-5" style="max-width:600px;">
+    <h2 class="text-center mb-4">إنشاء حساب في نظام كلية الهندسة المعلوماتية</h2>
 
     <form asp-action="Register" method="post">
-        <div class="input-box">
-            <input asp-for="Username" placeholder="اسم المستخدم" required />
+        <div class="form-group mb-3">
+            <input asp-for="FullName" class="form-control" placeholder="الاسم الكامل" required />
         </div>
-        <div class="input-box">
-            <input asp-for="Password" type="password" placeholder="كلمة المرور" required />
+        <div class="form-group mb-3">
+            <input asp-for="Username" class="form-control" placeholder="الاسم" required />
         </div>
-        <button type="submit">تسجيل</button>
+
+        <div class="form-group mb-3">
+            <input asp-for="Email" type="email" class="form-control" placeholder="البريد الإلكتروني" required />
+        </div>
+
+        <div class="form-group mb-3">
+            <input asp-for="Password" type="password" class="form-control" placeholder="كلمة المرور" required />
+        </div>
+
+        <div class="form-group mb-3">
+            <input asp-for="ConfirmPassword" type="password" class="form-control" placeholder="تأكيد كلمة المرور" required />
+        </div>
+
+        <div class="form-group mb-4">
+            <select asp-for="Role" class="form-control" required>
+                <option value="">اختر الدور</option>
+                <option value="Admin">مشرف</option>
+                <option value="Student">طالب</option>
+                <option value="Teacher">مدرس</option>
+                <option value="Employee">موظف</option>
+            </select>
+        </div>
+
+        <div class="d-grid">
+            <button type="submit" class="btn btn-primary">تسجيل</button>
+        </div>
 
         @if (ViewBag.Error != null)
         {
-            <p class="error-message">@ViewBag.Error</p>
+            <div class="alert alert-danger mt-3">@ViewBag.Error</div>
         }
     </form>
 </div>

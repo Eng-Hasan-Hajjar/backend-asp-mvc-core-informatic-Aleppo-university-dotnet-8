@@ -45,6 +45,11 @@ namespace informatic_asp_mvc.Migrations
                     b.Property<string>("Role")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("UniversityId")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
+
                     b.Property<string>("Username")
                         .HasColumnType("nvarchar(max)");
 

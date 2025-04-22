@@ -1,30 +1,36 @@
 ﻿@model informatic_asp_mvc.Models.LoginRegisterViewModel
 
-<div class="container mt-5" style="max-width:600px;">
+<div class="container mt-5" style="max-width:600px; direction: rtl; text-align: right;margin-top:10px">
     <h2 class="text-center mb-4">إنشاء حساب في نظام كلية الهندسة المعلوماتية</h2>
 
     <form asp-action="Register" method="post">
         <div class="form-group mb-3">
-            <input asp-for="FullName" class="form-control" placeholder="الاسم الكامل" required />
-        </div>
-        <div class="form-group mb-3">
-            <input asp-for="Username" class="form-control" placeholder="الاسم" required />
+            <input asp-for="FullName" class="form-control text-right" placeholder="الاسم الكامل" required />
         </div>
 
         <div class="form-group mb-3">
-            <input asp-for="Email" type="email" class="form-control" placeholder="البريد الإلكتروني" required />
+            <input asp-for="Username" class="form-control text-right" placeholder="اسم المستخدم" required />
         </div>
 
         <div class="form-group mb-3">
-            <input asp-for="Password" type="password" class="form-control" placeholder="كلمة المرور" required />
+            <input asp-for="Email" type="email" class="form-control text-right" placeholder="البريد الإلكتروني" required />
         </div>
 
         <div class="form-group mb-3">
-            <input asp-for="ConfirmPassword" type="password" class="form-control" placeholder="تأكيد كلمة المرور" required />
+            <input asp-for="Password" type="password" class="form-control text-right" placeholder="كلمة المرور" required />
+        </div>
+
+        <div class="form-group mb-3">
+            <input asp-for="ConfirmPassword" type="password" class="form-control text-right" placeholder="تأكيد كلمة المرور" required />
+        </div>
+
+        <div class="form-group mb-3">
+            <input asp-for="UniversityId" class="form-control text-right" placeholder="الرقم الجامعي" required />
+            <span asp-validation-for="UniversityId" class="text-danger"></span>
         </div>
 
         <div class="form-group mb-4">
-            <select asp-for="Role" class="form-control" required>
+            <select asp-for="Role" class="form-control text-right" required>
                 <option value="">اختر الدور</option>
                 <option value="Admin">مشرف</option>
                 <option value="Student">طالب</option>

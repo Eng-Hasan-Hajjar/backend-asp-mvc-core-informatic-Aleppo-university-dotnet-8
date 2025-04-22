@@ -27,5 +27,11 @@ namespace informatic_asp_mvc.Models
 
         [Required]
         public string Role { get; set; }
+
+        [Required]
+        [Display(Name = "الرقم الجامعي")]
+        [StringLength(10, MinimumLength = 3, ErrorMessage = "الرقم الجامعي يجب أن يكون بين 3 و 10 خانات")]
+        public string UniversityId { get; set; }
+
     }
 }

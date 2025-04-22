@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "ul6HN/9b+8eO5lQg7I1k5DdvC/3h/af1PZDdOrg+Dvs=",
+  "Hash": "pU3Kx169XHlcRjKLcu8IJhuYLJiiLu4lTL2Q0hOPYog=",
   "Source": "informatic_asp_mvc",
   "BasePath": "_content/informatic_asp_mvc",
   "Mode": "Default",
@@ -1359,6 +1359,27 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt"
+    },
+    {
+      "Identity": "C:\\Users\\engya\\source\\repos\\informatic_asp_mvc\\informatic_asp_mvc\\wwwroot\\res\\img\\college-logo.png",
+      "SourceId": "informatic_asp_mvc",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\engya\\source\\repos\\informatic_asp_mvc\\informatic_asp_mvc\\wwwroot\\",
+      "BasePath": "_content/informatic_asp_mvc",
+      "RelativePath": "res/img/college-logo#[.{fingerprint}]?.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "nw63a94bvj",
+      "Integrity": "SaxZ0/hUxHGs73h5jeCITlD9+Y0DKr8pUiciyiOSjxw=",
+      "CopyToOutputDirectory": "Always",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\res\\img\\college-logo.png"
     }
   ],
   "Endpoints": [
@@ -6607,6 +6628,88 @@
         {
           "Name": "integrity",
           "Value": "sha256-16aFlqtpsG9RyieKZUUUjkJpqTgcJtWXwT312I4Iz1s="
+        }
+      ]
+    },
+    {
+      "Route": "res/img/college-logo.nw63a94bvj.png",
+      "AssetFile": "C:\\Users\\engya\\source\\repos\\informatic_asp_mvc\\informatic_asp_mvc\\wwwroot\\res\\img\\college-logo.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "95284"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"SaxZ0/hUxHGs73h5jeCITlD9+Y0DKr8pUiciyiOSjxw=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 20 Apr 2025 04:43:38 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "nw63a94bvj"
+        },
+        {
+          "Name": "label",
+          "Value": "res/img/college-logo.png"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-SaxZ0/hUxHGs73h5jeCITlD9+Y0DKr8pUiciyiOSjxw="
+        }
+      ]
+    },
+    {
+      "Route": "res/img/college-logo.png",
+      "AssetFile": "C:\\Users\\engya\\source\\repos\\informatic_asp_mvc\\informatic_asp_mvc\\wwwroot\\res\\img\\college-logo.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "95284"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"SaxZ0/hUxHGs73h5jeCITlD9+Y0DKr8pUiciyiOSjxw=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 20 Apr 2025 04:43:38 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-SaxZ0/hUxHGs73h5jeCITlD9+Y0DKr8pUiciyiOSjxw="
         }
       ]
     }

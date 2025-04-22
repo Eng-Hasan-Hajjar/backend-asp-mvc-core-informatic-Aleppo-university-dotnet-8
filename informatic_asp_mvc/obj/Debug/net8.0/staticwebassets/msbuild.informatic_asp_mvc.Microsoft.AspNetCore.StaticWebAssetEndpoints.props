@@ -756,5 +756,17 @@
       <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-hjIBkvmgxQXbNXK3B9YQ3t06RwLuQSQzC/dpvuB/lMk="}]]]></EndpointProperties>
       <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"1117"},{"Name":"Content-Type","Value":"text/plain"},{"Name":"ETag","Value":"\u0022hjIBkvmgxQXbNXK3B9YQ3t06RwLuQSQzC/dpvuB/lMk=\u0022"},{"Name":"Last-Modified","Value":"Sun, 20 Apr 2025 08:54:40 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/informatic_asp_mvc/res/img/college-logo.nw63a94bvj.png">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\res\img\college-logo.png'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"nw63a94bvj"},{"Name":"integrity","Value":"sha256-SaxZ0/hUxHGs73h5jeCITlD9\u002BY0DKr8pUiciyiOSjxw="},{"Name":"label","Value":"_content/informatic_asp_mvc/res/img/college-logo.png"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"95284"},{"Name":"Content-Type","Value":"image/png"},{"Name":"ETag","Value":"\u0022SaxZ0/hUxHGs73h5jeCITlD9\u002BY0DKr8pUiciyiOSjxw=\u0022"},{"Name":"Last-Modified","Value":"Sun, 20 Apr 2025 04:43:38 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/informatic_asp_mvc/res/img/college-logo.png">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\res\img\college-logo.png'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-SaxZ0/hUxHGs73h5jeCITlD9\u002BY0DKr8pUiciyiOSjxw="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=3600, must-revalidate"},{"Name":"Content-Length","Value":"95284"},{"Name":"Content-Type","Value":"image/png"},{"Name":"ETag","Value":"\u0022SaxZ0/hUxHGs73h5jeCITlD9\u002BY0DKr8pUiciyiOSjxw=\u0022"},{"Name":"Last-Modified","Value":"Sun, 20 Apr 2025 04:43:38 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
   </ItemGroup>
 </Project>

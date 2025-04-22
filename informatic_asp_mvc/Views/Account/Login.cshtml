@@ -1,11 +1,11 @@
 ﻿@model informatic_asp_mvc.Models.LoginRegisterViewModel
 
-<div class="container">
+<div class="container" style="margin-top:10px">
     <h2>تسجيل الدخول</h2>
     <form asp-action="Login" method="post">
         <div class="input-box">
-            <input asp-for="Username" required>
-            <label>اسم المستخدم</label>
+            <input asp-for="UniversityId" required>
+            <label>الرقم الجامعي</label>
         </div>
         <div class="input-box">
             <input asp-for="Password" type="password" required>

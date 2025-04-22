@@ -253,6 +253,10 @@
       "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.map"
     },
     {
+      "Id": "C:\\Users\\engya\\source\\repos\\informatic_asp_mvc\\informatic_asp_mvc\\wwwroot\\res\\img\\college-logo.png",
+      "PackagePath": "staticwebassets\\res\\img\\college-logo.png"
+    },
+    {
       "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.informatic_asp_mvc.props",
       "PackagePath": "build\\informatic_asp_mvc.props"
     },

@@ -12,7 +12,7 @@ using informatic_asp_mvc.Models;
 namespace informatic_asp_mvc.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250422053930_InitialCreate")]
+    [Migration("20250422122837_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -47,6 +47,11 @@ namespace informatic_asp_mvc.Migrations
 
                     b.Property<string>("Role")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UniversityId")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
 
                     b.Property<string>("Username")
                         .HasColumnType("nvarchar(max)");

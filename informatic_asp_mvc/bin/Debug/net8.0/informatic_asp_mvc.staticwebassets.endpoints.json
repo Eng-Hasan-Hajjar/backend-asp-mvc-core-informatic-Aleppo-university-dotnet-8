@@ -5167,6 +5167,88 @@
           "Value": "sha256-OZVI+w57FGwS9boYCZpH1ZSpcP7pYhLu4KtIUvPlZ4I="
         }
       ]
+    },
+    {
+      "Route": "res/img/college-logo.nw63a94bvj.png",
+      "AssetFile": "res/img/college-logo.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "95284"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"SaxZ0/hUxHGs73h5jeCITlD9+Y0DKr8pUiciyiOSjxw=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 20 Apr 2025 04:43:38 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "nw63a94bvj"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-SaxZ0/hUxHGs73h5jeCITlD9+Y0DKr8pUiciyiOSjxw="
+        },
+        {
+          "Name": "label",
+          "Value": "res/img/college-logo.png"
+        }
+      ]
+    },
+    {
+      "Route": "res/img/college-logo.png",
+      "AssetFile": "res/img/college-logo.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "95284"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"SaxZ0/hUxHGs73h5jeCITlD9+Y0DKr8pUiciyiOSjxw=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 20 Apr 2025 04:43:38 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-SaxZ0/hUxHGs73h5jeCITlD9+Y0DKr8pUiciyiOSjxw="
+        }
+      ]
     }
   ]
 }

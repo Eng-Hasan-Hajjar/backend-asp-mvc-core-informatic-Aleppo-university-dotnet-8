@@ -19,38 +19,54 @@
 
     @RenderSection("Styles", required: false)
 
+    <style>
+        html, body {
+            height: 100%;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+        }
+
+        main {
+            flex: 1;
+        }
+
+        footer {
+            background-color: #f8f9fa;
+            padding: 1rem 0;
+            text-align: center;
+        }
+
+        .college-logo {
+            width: 120px;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+            margin-top: 10px ;
+        }
+    </style>
 
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">informatic_asp_mvc</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
+
+
+
+    <div class="container" style="padding:50px">
+
+
+
+        <main role="main" class="pb-3" style="padding:50px">
+            <img src="@Url.Content("~/res/img/college-logo.png")"
+                 alt="شعار الكلية"
+                 class="college-logo" />
             @RenderBody()
         </main>
     </div>
 
-    <footer class="bg-dark text-white mt-5 py-4">
-        <div class="container text-center">
+    <footer class="container">
+        <div  class="pb-3">
             <p>&copy; 2025 - نظام إدارة كلية الهندسة المعلوماتية - جميع الحقوق محفوظة</p>
         </div>
     </footer>

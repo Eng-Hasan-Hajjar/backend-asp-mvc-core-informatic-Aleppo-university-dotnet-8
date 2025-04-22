@@ -1,6 +1,8 @@
 ﻿using informatic_asp_mvc.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
+using Microsoft.AspNetCore.Identity;
+
 
 namespace informatic_asp_mvc.Controllers
 {
@@ -22,15 +24,29 @@ namespace informatic_asp_mvc.Controllers
         public IActionResult Login(LoginRegisterViewModel model)
         {
             // استخدام أسماء الأعمدة الصحيحة من الكلاس User
-            var user = _context.Users.FirstOrDefault(u => u.Username == model.Username && u.PasswordHash == model.Password);
+        //    var user = _context.Users.FirstOrDefault(u => u.Username == model.Username && u.PasswordHash == model.Password);
+            // تسجيل الدخول باستخدام الرقم الجامعي
+            var user = _context.Users
+                .FirstOrDefault(u => u.UniversityId == model.UniversityId && u.PasswordHash == model.Password);
 
             if (user != null)
             {
+
+
+                var passwordHasher = new PasswordHasher<User>();
+                var result = passwordHasher.VerifyHashedPassword(user, user.PasswordHash, model.Password);
+
+                if (result == PasswordVerificationResult.Success)
+                {
+                    // كلمة المرور صحيحة
+                    return RedirectToAction("Index", "Home");
+                }
+
                 // يمكن استخدام Session أو Cookie هنا لتخزين معلومات المستخدم
                 return RedirectToAction("Index", "Home");
             }
 
-            ViewBag.Error = "Invalid credentials";
+            ViewBag.Error = "البيانات غير صحيحة";
             return View(model);
         }
 
@@ -42,6 +58,10 @@ namespace informatic_asp_mvc.Controllers
         [HttpPost]
         public IActionResult Register(LoginRegisterViewModel model)
         {
+
+            // أنشئ هاشّر
+            var passwordHasher = new PasswordHasher<User>();
+
             if (!ModelState.IsValid)
             {
                 ViewBag.Error = "جميع الحقول مطلوبة";
@@ -50,14 +70,14 @@ namespace informatic_asp_mvc.Controllers
 
             if (_context.Users.Any(u => u.FullName == model.FullName))
             {
-                ViewBag.Error = "FullName already exists";
+                ViewBag.Error = "الاسم الكامل موجود بالفعل  ";
                 return View(model);
             }
 
 
             if (_context.Users.Any(u => u.Username == model.Username))
             {
-                ViewBag.Error = "Username already exists";
+                ViewBag.Error = "اسم المستخدم موجود بالفعل";
                 return View(model);
             }
 
@@ -82,12 +102,15 @@ namespace informatic_asp_mvc.Controllers
                 FullName = model.FullName,
                 Username = model.Username,
                 Email = model.Email,
-                PasswordHash = model.Password, // يفضل لاحقًا تشفير كلمة المرور!
-                Role = model.Role
+              //  PasswordHash = model.Password, // يفضل لاحقًا تشفير كلمة المرور!
+
+                Role = model.Role,
+                UniversityId = model.UniversityId
             };
 
-       
 
+            // شفّر كلمة المرور
+            newUser.PasswordHash = passwordHasher.HashPassword(newUser, model.Password);
 
             _context.Users.Add(newUser);
             _context.SaveChanges();

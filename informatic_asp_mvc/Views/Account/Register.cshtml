@@ -1,51 +1,52 @@
 ﻿@model informatic_asp_mvc.Models.LoginRegisterViewModel
 
-<div class="container mt-5" style="max-width:600px; direction: rtl; text-align: right;margin-top:10px">
-    <h2 class="text-center mb-4">إنشاء حساب في نظام كلية الهندسة المعلوماتية</h2>
+<div class="container mt-5" style="max-width: 600px;">
+    <div class="card shadow p-4">
+        <h3 class="text-center mb-4">إنشاء حساب في النظام</h3>
 
-    <form asp-action="Register" method="post">
-        <div class="form-group mb-3">
-            <input asp-for="FullName" class="form-control text-right" placeholder="الاسم الكامل" required />
-        </div>
+        <form asp-action="Register" method="post">
+            <div class="form-floating mb-3">
+                <input asp-for="FullName" class="form-control" placeholder="الاسم الكامل" required />
+                <label>الاسم الكامل</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input asp-for="Username" class="form-control" placeholder="اسم المستخدم" required />
+                <label>اسم المستخدم</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input asp-for="Email" type="email" class="form-control" placeholder="البريد الإلكتروني" required />
+                <label>البريد الإلكتروني</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input asp-for="Password" type="password" class="form-control" placeholder="كلمة المرور" required />
+                <label>كلمة المرور</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input asp-for="ConfirmPassword" type="password" class="form-control" placeholder="تأكيد كلمة المرور" required />
+                <label>تأكيد كلمة المرور</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input asp-for="UniversityId" class="form-control" placeholder="الرقم الجامعي" required />
+                <label>الرقم الجامعي</label>
+                <span asp-validation-for="UniversityId" class="text-danger small"></span>
+            </div>
+            <div class="form-floating mb-4">
+                <select asp-for="Role" class="form-select" required>
+                    <option value="">اختر الدور</option>
+                    <option value="Admin">مشرف</option>
+                    <option value="Student">طالب</option>
+                    <option value="Teacher">مدرس</option>
+                    <option value="Employee">موظف</option>
+                </select>
+                <label>الدور</label>
+            </div>
 
-        <div class="form-group mb-3">
-            <input asp-for="Username" class="form-control text-right" placeholder="اسم المستخدم" required />
-        </div>
+            <button type="submit" class="btn btn-primary w-100">تسجيل</button>
 
-        <div class="form-group mb-3">
-            <input asp-for="Email" type="email" class="form-control text-right" placeholder="البريد الإلكتروني" required />
-        </div>
-
-        <div class="form-group mb-3">
-            <input asp-for="Password" type="password" class="form-control text-right" placeholder="كلمة المرور" required />
-        </div>
-
-        <div class="form-group mb-3">
-            <input asp-for="ConfirmPassword" type="password" class="form-control text-right" placeholder="تأكيد كلمة المرور" required />
-        </div>
-
-        <div class="form-group mb-3">
-            <input asp-for="UniversityId" class="form-control text-right" placeholder="الرقم الجامعي" required />
-            <span asp-validation-for="UniversityId" class="text-danger"></span>
-        </div>
-
-        <div class="form-group mb-4">
-            <select asp-for="Role" class="form-control text-right" required>
-                <option value="">اختر الدور</option>
-                <option value="Admin">مشرف</option>
-                <option value="Student">طالب</option>
-                <option value="Teacher">مدرس</option>
-                <option value="Employee">موظف</option>
-            </select>
-        </div>
-
-        <div class="d-grid">
-            <button type="submit" class="btn btn-primary">تسجيل</button>
-        </div>
-
-        @if (ViewBag.Error != null)
-        {
-            <div class="alert alert-danger mt-3">@ViewBag.Error</div>
-        }
-    </form>
+            @if (ViewBag.Error != null)
+            {
+                <div class="alert alert-danger mt-3">@ViewBag.Error</div>
+            }
+        </form>
+    </div>
 </div>

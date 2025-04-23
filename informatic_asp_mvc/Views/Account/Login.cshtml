@@ -1,23 +1,28 @@
 ﻿@model informatic_asp_mvc.Models.LoginRegisterViewModel
 
-<div class="container" style="margin-top:10px">
-    <h2>تسجيل الدخول</h2>
-    <form asp-action="Login" method="post">
-        <div class="input-box">
-            <input asp-for="UniversityId" required>
-            <label>الرقم الجامعي</label>
-        </div>
-        <div class="input-box">
-            <input asp-for="Password" type="password" required>
-            <label>كلمة المرور</label>
-        </div>
-        <button type="submit">دخول</button>
+<div class="container mt-5" style="max-width: 500px;">
+    <div class="card shadow p-4">
+        <h3 class="text-center mb-4">تسجيل الدخول إلى النظام</h3>
+        <form asp-action="Login" method="post">
+            <div class="form-floating mb-3">
+                <input asp-for="UniversityId" class="form-control" placeholder="الرقم الجامعي" required>
+                <label>الرقم الجامعي</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input asp-for="Password" type="password" class="form-control" placeholder="كلمة المرور" required>
+                <label>كلمة المرور</label>
+            </div>
 
-        @if (ViewBag.Error != null)
-        {
-            <p class="error-message">@ViewBag.Error</p>
-        }
+            <button type="submit" class="btn btn-primary w-100">دخول</button>
 
-        <p>ليس لديك حساب؟ <a asp-action="Register" asp-controller="Account">إنشاء حساب</a></p>
-    </form>
+            @if (ViewBag.Error != null)
+            {
+                <div class="alert alert-danger mt-3">@ViewBag.Error</div>
+            }
+
+            <div class="text-center mt-3">
+                <small>ليس لديك حساب؟ <a asp-action="Register" asp-controller="Account">إنشاء حساب</a></small>
+            </div>
+        </form>
+    </div>
 </div>

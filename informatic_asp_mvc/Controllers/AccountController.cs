@@ -23,29 +23,26 @@ namespace informatic_asp_mvc.Controllers
         [HttpPost]
         public IActionResult Login(LoginRegisterViewModel model)
         {
-            // استخدام أسماء الأعمدة الصحيحة من الكلاس User
-        //    var user = _context.Users.FirstOrDefault(u => u.Username == model.Username && u.PasswordHash == model.Password);
-            // تسجيل الدخول باستخدام الرقم الجامعي
-            var user = _context.Users
-                .FirstOrDefault(u => u.UniversityId == model.UniversityId && u.PasswordHash == model.Password);
+            // 1. البحث عن المستخدم فقط عبر الرقم الجامعي
+            var user = _context.Users.FirstOrDefault(u => u.UniversityId == model.UniversityId);
 
+            // 2. التحقق إن كان المستخدم موجود
             if (user != null)
             {
-
-
+                // 3. التحقق من كلمة المرور باستخدام PasswordHasher
                 var passwordHasher = new PasswordHasher<User>();
                 var result = passwordHasher.VerifyHashedPassword(user, user.PasswordHash, model.Password);
 
                 if (result == PasswordVerificationResult.Success)
                 {
-                    // كلمة المرور صحيحة
+                    // 4. ✅ كلمة المرور صحيحة - تسجيل الدخول ناجح
                     return RedirectToAction("Index", "Home");
                 }
 
                 // يمكن استخدام Session أو Cookie هنا لتخزين معلومات المستخدم
                 return RedirectToAction("Index", "Home");
             }
-
+            // 5. ❌ المستخدم غير موجود أو كلمة المرور غير صحيحة
             ViewBag.Error = "البيانات غير صحيحة";
             return View(model);
         }

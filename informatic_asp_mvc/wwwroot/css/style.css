@@ -1,4 +1,17 @@
 ﻿/* Reset */
+
+
+:root {
+    --primary-color: #1e3c72;
+    --secondary-color: #2a5298;
+    --light-color: #f8f9fa;
+    --danger-color: #e74c3c;
+    --text-color: #333;
+    --font-main: 'Tajawal', sans-serif;
+}
+
+
+
 * {
     margin: 0;
     padding: 0;
@@ -6,7 +19,7 @@
     font-family: 'Tajawal', sans-serif;
 }
 
-/* Page Background */
+/* Page Background 
 body {
     display: flex;
     justify-content: center;
@@ -14,16 +27,7 @@ body {
     min-height: 100vh;
     background: linear-gradient(45deg, #1e3c72, #2a5298);
 }
-
-/* Container */
-.container {
-    width: 400px;
-    background: #fff;
-    border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-    padding: 40px;
-    text-align: center;
-}
+*/
 
 /* Heading */
 h2 {
@@ -110,3 +114,141 @@ p {
         p a:hover {
             text-decoration: underline;
         }
+
+
+
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    flex: 1;
+}
+
+
+
+
+
+
+.input-box input {
+    border: none;
+    border-bottom: 2px solid #ccc;
+    background: transparent;
+    transition: all 0.3s ease;
+}
+
+    .input-box input:focus {
+        border-bottom: 2px solid var(--primary-color);
+        box-shadow: 0 1px 0 0 var(--primary-color);
+    }
+
+.input-box label {
+    right: 10px;
+    top: 10px;
+    color: #999;
+    font-size: 0.95em;
+    transition: 0.3s ease all;
+}
+
+.input-box input:focus ~ label,
+.input-box input:valid ~ label {
+    top: -15px;
+    right: 0;
+    font-size: 0.8em;
+    color: var(--primary-color);
+}
+
+
+
+button {
+    background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+    border: none;
+    border-radius: 30px;
+    padding: 12px;
+    color: white;
+    font-size: 1.1em;
+    font-weight: bold;
+    transition: background 0.4s ease;
+}
+
+    button:hover {
+        background: linear-gradient(to left, var(--primary-color), var(--secondary-color));
+    }
+
+
+
+
+.container {
+    max-width: 500px;
+    width: 100%;
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.1);
+    padding: 50px 40px;
+    margin-top: 60px;
+    direction: rtl;
+    text-align: right;
+}
+
+
+
+.college-logo {
+    width: 100px;
+    height: auto;
+    margin: 0 auto 20px;
+}
+
+body {
+    font-family: 'Tajawal', sans-serif;
+    background-color: #f7f9fc;
+}
+
+footer {
+    text-align: center;
+    padding: 20px 0;
+    font-size: 0.9rem;
+    color: #6c757d;
+    border-top: 1px solid #dee2e6;
+    margin-top: 50px;
+}
+
+.college-logo {
+    max-height: 80px;
+    display: block;
+    margin: auto;
+}
+
+
+
+footer {
+    background-color: #f8f9fa;
+    padding: 1rem 0;
+    text-align: center;
+    font-size: 0.9em;
+    color: #666;
+    border-top: 1px solid #ddd;
+}
+
+.error-message,
+.alert-danger {
+    background-color: #ffe6e6;
+    color: var(--danger-color);
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 0.9em;
+    margin-top: 15px;
+}
+
+
+
+
+
+
+

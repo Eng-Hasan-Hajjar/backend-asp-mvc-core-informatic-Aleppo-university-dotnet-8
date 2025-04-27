@@ -1,0 +1,157 @@
+
+
+
+
+<div id="studentModal" class="modal">
+    <div class="modal-content">
+        <h3 style="color: #2c3e50; margin-bottom: 30px; border-bottom: 2px solid #eee; padding-bottom: 15px;">
+            <i class="mdi mdi-account-plus"></i> تسجيل طالب جديد
+        </h3>
+        
+        <form id="studentForm">
+            <div class="form-grid">
+                <!-- العمود الأول -->
+                <div>
+                    <!-- المعلومات الشخصية -->
+                    <div class="form-group">
+                        <label><i class="mdi mdi-account-outline"></i> الاسم الكامل</label>
+                        <input type="text" name="stu_name" required pattern="[ء-ي\s]{3,}">
+                        <small class="form-text text-muted">يجب أن يحتوي على الأقل على 3 أحرف</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label><i class="mdi mdi-human-male"></i> اسم الأب</label>
+                        <input type="text" name="stu_father" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label><i class="mdi mdi-human-female"></i> اسم الأم</label>
+                        <input type="text" name="stu_mother" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label><i class="mdi mdi-calendar"></i> تاريخ الميلاد</label>
+                        <input type="date" name="stu_birth" required max="<?= date('Y-m-d') ?>">
+                    </div>
+                </div>
+
+                <!-- العمود الثاني -->
+                <div>
+                    <!-- المعلومات الأكاديمية -->
+                    <div class="form-group">
+                        <label><i class="mdi mdi-calendar-check"></i> تاريخ الالتحاق</label>
+                        <input type="date" name="join_date" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label><i class="mdi mdi-school"></i> السنة الدراسية</label>
+                        <select name="stu_year" required>
+                            <option value="" disabled selected>اختر السنة</option>
+                            <option value="الأولى">الأولى</option>
+                            <option value="الثانية">الثانية</option>
+                            <option value="الثالثة">الثالثة</option>
+                            <option value="الرابعة">الرابعة</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label><i class="mdi mdi-shield-account"></i> الحالة الدراسية</label>
+                        <select name="stu_state" required>
+                            <option value="ناجح">ناجح</option>
+                            <option value="منقول">منقول</option>
+                            <option value="راسب">راسب</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label><i class="mdi mdi-lock"></i> كلمة المرور</label>
+                        <input type="password" name="stu_pass" required minlength="8">
+                        <div class="password-strength"></div>
+                        <small class="form-text">يجب أن تحتوي على الأقل على 8 أحرف</small>
+                    </div>
+                </div>
+            </div>
+
+            <!-- القسم السفلي -->
+            <div class="form-grid">
+                <div class="form-group">
+                    <label><i class="mdi mdi-flag"></i> الجنسية</label>
+                    <input type="text" name="nationality" required list="countries">
+                    <datalist id="countries">
+                        <option value="سوري">
+                        <option value="عراقي">
+                        <option value="أردني">
+                        <!-- يمكن إضافة المزيد -->
+                    </datalist>
+                </div>
+
+                <div class="form-group">
+                    <label><i class="mdi mdi-percent"></i> معدل الثانوية</label>
+                    <input type="number" step="0.01" name="bac_avg" required min="50" max="100">
+                </div>
+
+                <div class="form-group">
+                    <label><i class="mdi mdi-account-group"></i> نوع المفاضلة</label>
+                    <select name="compar_type" required>
+                        <option value="عام">عام</option>
+                        <option value="ذوي احتياجات خاصة">ذوي احتياجات خاصة</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label><i class="mdi mdi-door-open"></i> رقم الفصل العملي</label>
+                    <input type="text" name="cls_id" required pattern="[A-Z0-9]{3,}">
+                </div>
+            </div>
+
+            <div class="action-btns">
+                <button type="submit" class="btn btn-success">
+                    <i class="mdi mdi-content-save"></i> حفظ البيانات
+                </button>
+                <button type="button" class="btn btn-danger" onclick="closeModal('student')">
+                    <i class="mdi mdi-close"></i> إلغاء
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+    
+    // تحقق من قوة كلمة المرور
+    document.querySelector('[name="stu_pass"]').addEventListener('input', function(e) {
+        const strengthBar = document.querySelector('.password-strength');
+        const strength = {
+            0: {color: '#e74c3c', width: '20%'},
+            1: {color: '#e67e22', width: '40%'},
+            2: {color: '#f1c40f', width: '60%'},
+            3: {color: '#2ecc71', width: '80%'},
+            4: {color: '#27ae60', width: '100%'}
+        };
+        
+        const score = calculatePasswordStrength(e.target.value);
+        strengthBar.style.width = strength[score].width;
+        strengthBar.style.backgroundColor = strength[score].color;
+    });
+    
+    function calculatePasswordStrength(password) {
+        let score = 0;
+        if (password.length >= 8) score++;
+        if (password.match(/[A-Z]/)) score++;
+        if (password.match(/[0-9]/)) score++;
+        if (password.match(/[^A-Za-z0-9]/)) score++;
+        return Math.min(score, 4);
+    }
+    </script>
+    

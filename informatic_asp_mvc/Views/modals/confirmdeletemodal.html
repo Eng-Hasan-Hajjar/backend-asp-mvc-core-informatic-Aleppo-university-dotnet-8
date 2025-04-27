@@ -1,0 +1,18 @@
+<div id="confirmDeleteModal" class="modal">
+    <div class="modal-content" style="max-width: 400px; text-align: center;">
+      <h4 style="color: #c0392b;">
+        <i class="mdi mdi-alert-circle-outline"></i> هل أنت متأكد من حذف هذا الطالب؟
+      </h4>
+      <p>لا يمكن التراجع بعد تنفيذ الحذف.</p>
+  
+      <div class="action-btns" style="justify-content: center;">
+        <button class="btn btn-danger" onclick="confirmDeleteStudent()">
+          <i class="mdi mdi-delete"></i> نعم، احذف
+        </button>
+        <button class="btn btn-secondary" onclick="closeModal('confirmDelete')">
+          <i class="mdi mdi-close"></i> إلغاء
+        </button>
+      </div>
+    </div>
+  </div>
+  

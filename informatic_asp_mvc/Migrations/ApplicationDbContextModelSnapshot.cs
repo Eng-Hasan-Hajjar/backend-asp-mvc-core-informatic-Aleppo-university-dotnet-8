@@ -22,6 +22,507 @@ namespace informatic_asp_mvc.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("informatic_asp_mvc.Models.Ad", b =>
+                {
+                    b.Property<int>("AD_ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AD_ID"));
+
+                    b.Property<DateTime?>("AD_DATE")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("AD_DESCRIB")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("AD_TITLE")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("DOC_ID")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("TARGET_YEAR")
+                        .HasColumnType("int");
+
+                    b.HasKey("AD_ID");
+
+                    b.ToTable("Ads");
+                });
+
+            modelBuilder.Entity("informatic_asp_mvc.Models.Admin", b =>
+                {
+                    b.Property<int>("ADM_ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ADM_ID"));
+
+                    b.Property<string>("ADM_NAME")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ADM_PASS")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ADM_PERMISSION")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ADM_ID");
+
+                    b.ToTable("Admins");
+                });
+
+            modelBuilder.Entity("informatic_asp_mvc.Models.ClassRoom", b =>
+                {
+                    b.Property<int>("CLS_ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CLS_ID"));
+
+                    b.Property<string>("ATTENDANCE_FILE")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("CLS_ID");
+
+                    b.ToTable("ClassRooms");
+                });
+
+            modelBuilder.Entity("informatic_asp_mvc.Models.Doctor", b =>
+                {
+                    b.Property<int>("DOC_ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DOC_ID"));
+
+                    b.Property<string>("ADMIN_POSI")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DOC_DEPT")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DOC_MAIL")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DOC_NAME")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DOC_PASS")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("NUM_PROJECT")
+                        .HasColumnType("int");
+
+                    b.HasKey("DOC_ID");
+
+                    b.ToTable("Doctors");
+                });
+
+            modelBuilder.Entity("informatic_asp_mvc.Models.Lecture", b =>
+                {
+                    b.Property<int>("LEC_ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("LEC_ID"));
+
+                    b.Property<int?>("LEC_DATE")
+                        .HasColumnType("int");
+
+                    b.Property<string>("LEC_FILE")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LEC_NOTE")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LEC_TITLE")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LEC_TYPE")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("SUB_ID")
+                        .HasColumnType("int");
+
+                    b.HasKey("LEC_ID");
+
+                    b.ToTable("Lectures");
+                });
+
+            modelBuilder.Entity("informatic_asp_mvc.Models.ObjectionOrder", b =>
+                {
+                    b.Property<int>("OBJ_ORDER_ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OBJ_ORDER_ID"));
+
+                    b.Property<int>("ADM_ID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("DEG_TYPE")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("OBJECTION_RESAULT")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("OBJ_ORDER_DATE")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ORDER_REASON")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("STU_ID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SUB_ID")
+                        .HasColumnType("int");
+
+                    b.HasKey("OBJ_ORDER_ID");
+
+                    b.ToTable("ObjectionOrders");
+                });
+
+            modelBuilder.Entity("informatic_asp_mvc.Models.Post", b =>
+                {
+                    b.Property<int>("PST_ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PST_ID"));
+
+                    b.Property<int>("DOC_ID")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("PST_DATE")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("PST_DESCRIB")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PST_TITLE")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("STU_ID")
+                        .HasColumnType("int");
+
+                    b.HasKey("PST_ID");
+
+                    b.ToTable("Posts");
+                });
+
+            modelBuilder.Entity("informatic_asp_mvc.Models.Project", b =>
+                {
+                    b.Property<int>("PRO_ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PRO_ID"));
+
+                    b.Property<int>("ADM_ID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("DOC_ID")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("EXEC_YEAR")
+                        .HasColumnType("int");
+
+                    b.Property<double?>("PRO_DEG")
+                        .HasColumnType("float");
+
+                    b.Property<string>("PRO_DESCRIB")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PRO_DOCUMENT")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PRO_STATE")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PRO_TITLE")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PRO_TOOL")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PRO_TYPE")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("PRO_ID");
+
+                    b.ToTable("Projects");
+                });
+
+            modelBuilder.Entity("informatic_asp_mvc.Models.Quiz", b =>
+                {
+                    b.Property<int>("QU_ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("QU_ID"));
+
+                    b.Property<string>("ANSR_1")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ANSR_2")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ANSR_3")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ANSR_4")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("DOC_ID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("QU_TEXT")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RIGHT_ANSR")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("SUB_ID")
+                        .HasColumnType("int");
+
+                    b.HasKey("QU_ID");
+
+                    b.ToTable("Quizzes");
+                });
+
+            modelBuilder.Entity("informatic_asp_mvc.Models.RepracOrder", b =>
+                {
+                    b.Property<int>("REPRAC_ORDER_ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("REPRAC_ORDER_ID"));
+
+                    b.Property<int>("ADM_ID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ORDER_STATE")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("RE_ORDER_DATE")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("RE_ORDER_RESON")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("STU_ID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SUB_ID")
+                        .HasColumnType("int");
+
+                    b.HasKey("REPRAC_ORDER_ID");
+
+                    b.ToTable("RepracOrders");
+                });
+
+            modelBuilder.Entity("informatic_asp_mvc.Models.StuPro", b =>
+                {
+                    b.Property<int>("STU_PRO_ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("STU_PRO_ID"));
+
+                    b.Property<int>("PRO_ID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("STU_ID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("STU_PRO_STATE")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("STU_PRO_ID");
+
+                    b.ToTable("StuPros");
+                });
+
+            modelBuilder.Entity("informatic_asp_mvc.Models.Stu_Sub", b =>
+                {
+                    b.Property<int>("STU_SUB_ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("STU_SUB_ID"));
+
+                    b.Property<string>("NOTE")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double?>("PRACTICE_DEG")
+                        .HasColumnType("float");
+
+                    b.Property<int>("STU_ID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SUB_ID")
+                        .HasColumnType("int");
+
+                    b.Property<double?>("THEORIC_DEG")
+                        .HasColumnType("float");
+
+                    b.HasKey("STU_SUB_ID");
+
+                    b.ToTable("Stu_Sub");
+                });
+
+            modelBuilder.Entity("informatic_asp_mvc.Models.Student", b =>
+                {
+                    b.Property<int>("STU_ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("STU_ID"));
+
+                    b.Property<double?>("BAC_AVG")
+                        .HasColumnType("float");
+
+                    b.Property<int?>("CLS_ID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("COMPAR_TYPE")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("JOIN_DATE")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("NATIONALITY")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NATIONAL_NUMBER")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PHONE_NUMBER")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("STU_BRTH")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("STU_FTHR")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("STU_GENDER")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("STU_MTHR")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("STU_NAME")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("STU_NICK")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("STU_PASS")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("STU_STATE")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("STU_YEAR")
+                        .HasColumnType("int");
+
+                    b.HasKey("STU_ID");
+
+                    b.ToTable("Students");
+                });
+
+            modelBuilder.Entity("informatic_asp_mvc.Models.Subject", b =>
+                {
+                    b.Property<int>("SUB_ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SUB_ID"));
+
+                    b.Property<string>("ACAD_DESCRIB")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("COURSE_EXAMS")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("DOC_ID")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("EXAM_DATE")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("SUB_NAME")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SUB_SEMESTER")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SUB_TYPE")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("SUB_YEAR")
+                        .HasColumnType("int");
+
+                    b.HasKey("SUB_ID");
+
+                    b.ToTable("Subjects");
+                });
+
             modelBuilder.Entity("informatic_asp_mvc.Models.User", b =>
                 {
                     b.Property<int>("Id")

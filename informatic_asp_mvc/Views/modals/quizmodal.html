@@ -1,0 +1,115 @@
+<div id="quizModal" class="modal">
+    <div class="modal-content">
+        <h3 style="color: #2c3e50; margin-bottom: 30px; border-bottom: 2px solid #eee; padding-bottom: 15px;">
+            <i class="mdi mdi-file-question"></i> إنشاء اختبار جديد
+        </h3>
+        
+        <div class="modal-body">
+            <form id="quizForm">
+                <div class="form-grid">
+                    <!-- العمود الأول -->
+                    <div>
+                        <div class="form-group">
+                            <label><i class="mdi mdi-identifier"></i> رقم الاختبار</label>
+                            <input type="text" name="qu_id" required 
+                                   pattern="QUIZ-\d{3}" 
+                                   title="تنسيق: QUIZ-XXX">
+                            <small class="form-text">مثال: QUIZ-101</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label><i class="mdi mdi-book-open"></i> المادة الدراسية</label>
+                            <select name="sub_id" class="subject-select" required>
+                                <option value="" disabled selected>اختر المادة</option>
+                                <option value="SUB-101">برمجة متقدمة</option>
+                                <option value="SUB-102">ذكاء اصطناعي</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label><i class="mdi mdi-doctor"></i> الدكتور المنشئ</label>
+                            <select name="doc_id" required>
+                                <option value="" disabled selected>اختر الدكتور</option>
+                                <option value="DOC-101">د. أحمد محمد</option>
+                                <option value="DOC-102">د. سارة خالد</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- العمود الثاني -->
+                    <div>
+                        <div class="form-group">
+                            <label><i class="mdi mdi-checkbox-marked-circle"></i> الإجابة الصحيحة</label>
+                            <select name="right_ansr" class="answer-select" required>
+                                <option value="" disabled selected>اختر الإجابة الصحيحة</option>
+                                <option value="1">الإجابة 1</option>
+                                <option value="2">الإجابة 2</option>
+                                <option value="3">الإجابة 3</option>
+                                <option value="4">الإجابة 4</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label><i class="mdi mdi-clock"></i> زمن الاختبار (دقائق)</label>
+                            <input type="number" name="quiz_duration" 
+                                   min="5" max="180" 
+                                   value="30" required>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- نص السؤال -->
+                <div class="form-group">
+                    <label><i class="mdi mdi-comment-question"></i> نص السؤال</label>
+                    <textarea name="qu_text" class="question-editor" 
+                              rows="3" required 
+                              maxlength="500"
+                              placeholder="أدخل نص السؤال هنا..."></textarea>
+                    <div class="char-counter">
+                        <span class="current-count">0</span>/500 حرف
+                    </div>
+                </div>
+
+                <!-- الإجابات -->
+                <div class="answers-grid">
+                    <div class="form-group answer-item">
+                        <label><span class="answer-number">1</span> الإجابة الأولى</label>
+                        <input type="text" name="ansr_1" required 
+                               maxlength="200"
+                               placeholder="أدخل الإجابة الأولى">
+                    </div>
+
+                    <div class="form-group answer-item">
+                        <label><span class="answer-number">2</span> الإجابة الثانية</label>
+                        <input type="text" name="ansr_2" required 
+                               maxlength="200"
+                               placeholder="أدخل الإجابة الثانية">
+                    </div>
+
+                    <div class="form-group answer-item">
+                        <label><span class="answer-number">3</span> الإجابة الثالثة</label>
+                        <input type="text" name="ansr_3" required 
+                               maxlength="200"
+                               placeholder="أدخل الإجابة الثالثة">
+                    </div>
+
+                    <div class="form-group answer-item">
+                        <label><span class="answer-number">4</span> الإجابة الرابعة</label>
+                        <input type="text" name="ansr_4" required 
+                               maxlength="200"
+                               placeholder="أدخل الإجابة الرابعة">
+                    </div>
+                </div>
+
+                <div class="action-btns">
+                    <button type="submit" class="btn btn-success">
+                        <i class="mdi mdi-content-save"></i> حفظ الاختبار
+                    </button>
+                    <button type="button" class="btn btn-danger" onclick="closeModal('quiz')">
+                        <i class="mdi mdi-close"></i> إلغاء
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

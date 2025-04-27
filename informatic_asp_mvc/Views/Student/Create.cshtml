@@ -1,0 +1,260 @@
+﻿@model informatic_asp_mvc.Models.Student
+@{
+    Layout = "~/Views/Shared/_Layout_Admin.cshtml";
+}
+
+<div id="studentModal" class="modal fade" tabindex="-1" aria-labelledby="studentModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="studentModalLabel">
+                    <i class="mdi mdi-account-plus me-2"></i> تسجيل طالب جديد
+                </h3>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <form id="studentForm" asp-action="Create" method="post" class="needs-validation" novalidate>
+                    <div class="row g-3">
+                        <!-- العمود الأول -->
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label"><i class="mdi mdi-account-outline me-1"></i> الاسم الكامل</label>
+                                <input type="text" asp-for="STU_NAME" class="form-control" required pattern="[ء-ي\s]{3,}" />
+                                <div class="invalid-feedback">يجب أن يحتوي على الأقل على 3 أحرف</div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label"><i class="mdi mdi-human-male me-1"></i> اسم الأب</label>
+                                <input type="text" asp-for="STU_FTHR" class="form-control" required />
+                                <div class="invalid-feedback">هذا الحقل مطلوب</div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label"><i class="mdi mdi-human-female me-1"></i> اسم الأم</label>
+                                <input type="text" asp-for="STU_MTHR" class="form-control" required />
+                                <div class="invalid-feedback">هذا الحقل مطلوب</div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label"><i class="mdi mdi-calendar me-1"></i> تاريخ الميلاد</label>
+                                <input type="date" asp-for="STU_BRTH" class="form-control" required max="@DateTime.Now.ToString("yyyy-MM-dd")" />
+                                <div class="invalid-feedback">يرجى اختيار تاريخ صحيح</div>
+                            </div>
+                        </div>
+
+                        <!-- العمود الثاني -->
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label"><i class="mdi mdi-calendar-check me-1"></i> تاريخ الالتحاق</label>
+                                <input type="date" asp-for="JOIN_DATE" class="form-control" required />
+                                <div class="invalid-feedback">هذا الحقل مطلوب</div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label"><i class="mdi mdi-school me-1"></i> السنة الدراسية</label>
+                                <select asp-for="STU_YEAR" class="form-select" required>
+                                    <option value="" disabled selected>اختر السنة</option>
+                                    <option value="1">الأولى</option>
+                                    <option value="2">الثانية</option>
+                                    <option value="3">الثالثة</option>
+                                    <option value="4">الرابعة</option>
+                                </select>
+                                <div class="invalid-feedback">يرجى اختيار سنة دراسية</div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label"><i class="mdi mdi-shield-account me-1"></i> الحالة الدراسية</label>
+                                <select asp-for="STU_STATE" class="form-select" required>
+                                    <option value="ناجح">ناجح</option>
+                                    <option value="منقول">منقول</option>
+                                    <option value="راسب">راسب</option>
+                                </select>
+                                <div class="invalid-feedback">يرجى اختيار الحالة</div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label"><i class="mdi mdi-lock me-1"></i> كلمة المرور</label>
+                                <div class="input-group">
+                                    <input type="password" asp-for="STU_PASS" class="form-control" required minlength="8" id="passwordInput" />
+                                    <button class="btn btn-outline-secondary" type="button" id="togglePassword">
+                                        <i class="mdi mdi-eye-outline"></i>
+                                    </button>
+                                    <div class="invalid-feedback">يجب أن تحتوي على الأقل على 8 أحرف</div>
+                                </div>
+                                <div class="password-strength mt-2">
+                                    <div class="progress">
+                                        <div class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- القسم السفلي -->
+                    <div class="row g-3 mt-2">
+                        <div class="col-md-3">
+                            <div class="mb-3">
+                                <label class="form-label"><i class="mdi mdi-flag me-1"></i> الجنسية</label>
+                                <input type="text" asp-for="NATIONALITY" class="form-control" required list="countries" />
+                                <datalist id="countries">
+                                    <option value="سوري" />
+                                    <option value="عراقي" />
+                                    <option value="أردني" />
+                                    <option value="لبناني" />
+                                    <option value="فلسطيني" />
+                                </datalist>
+                                <div class="invalid-feedback">يرجى اختيار جنسية</div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="mb-3">
+                                <label class="form-label"><i class="mdi mdi-percent me-1"></i> معدل الثانوية</label>
+                                <input type="number" asp-for="BAC_AVG" step="0.01" class="form-control" required min="50" max="100" />
+                                <div class="invalid-feedback">يجب أن يكون بين 50 و100</div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="mb-3">
+                                <label class="form-label"><i class="mdi mdi-account-group me-1"></i> نوع المفاضلة</label>
+                                <select asp-for="COMPAR_TYPE" class="form-select" required>
+                                    <option value="عام">عام</option>
+                                    <option value="ذوي احتياجات خاصة">ذوي احتياجات خاصة</option>
+                                </select>
+                                <div class="invalid-feedback">يرجى اختيار نوع المفاضلة</div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="mb-3">
+                                <label class="form-label"><i class="mdi mdi-door-open me-1"></i> رقم الفصل العملي</label>
+                                <input type="text" asp-for="CLS_ID" class="form-control" required pattern="[A-Z0-9]{3,}" />
+                                <div class="invalid-feedback">يجب أن يحتوي على 3 أحرف أو أرقام على الأقل</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-success">
+                            <i class="mdi mdi-content-save me-1"></i> حفظ البيانات
+                        </button>
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+                            <i class="mdi mdi-close me-1"></i> إلغاء
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .modal-content {
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    .modal-header {
+        border-bottom: 1px solid #eee;
+        background-color: #f8f9fa;
+    }
+
+    .form-label {
+        font-weight: 500;
+        color: #2c3e50;
+    }
+
+    .form-control, .form-select {
+        border-radius: 5px;
+        border: 1px solid #ced4da;
+        padding: 0.5rem 0.75rem;
+    }
+
+        .form-control:focus, .form-select:focus {
+            border-color: #4e73df;
+            box-shadow: 0 0 0 0.2rem rgba(78, 115, 223, 0.25);
+        }
+
+    .btn-success {
+        background-color: #1cc88a;
+        border-color: #1cc88a;
+    }
+
+        .btn-success:hover {
+            background-color: #17a673;
+            border-color: #17a673;
+        }
+
+    .btn-danger {
+        background-color: #e74a3b;
+        border-color: #e74a3b;
+    }
+
+        .btn-danger:hover {
+            background-color: #c6392b;
+            border-color: #c6392b;
+        }
+
+    .password-strength .progress {
+        height: 5px;
+        border-radius: 5px;
+    }
+
+    .invalid-feedback {
+        font-size: 0.85rem;
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Bootstrap form validation
+        const forms = document.querySelectorAll('.needs-validation');
+        Array.from(forms).forEach(form => {
+            form.addEventListener('submit', event => {
+                if (!form.checkValidity()) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+                form.classList.add('was-validated');
+            }, false);
+        });
+
+        // Password strength indicator
+        const passwordInput = document.getElementById('passwordInput');
+        const progressBar = document.querySelector('.progress-bar');
+
+        passwordInput.addEventListener('input', function(e) {
+            const strength = {
+                0: { color: '#e74c3c', width: '20%' },
+                1: { color: '#e67e22', width: '40%' },
+                2: { color: '#f1c40f', width: '60%' },
+                3: { color: '#2ecc71', width: '80%' },
+                4: { color: '#27ae60', width: '100%' }
+            };
+
+            const score = calculatePasswordStrength(e.target.value);
+            progressBar.style.width = strength[score].width;
+            progressBar.style.backgroundColor = strength[score].color;
+        });
+
+        function calculatePasswordStrength(password) {
+            let score = 0;
+            if (password.length >= 8) score++;
+            if (password.match(/[A-Z]/)) score++;
+            if (password.match(/[0-9]/)) score++;
+            if (password.match(/[^A-Za-z0-9]/)) score++;
+            return Math.min(score, 4);
+        }
+
+        // Toggle password visibility
+        const togglePassword = document.getElementById('togglePassword');
+        togglePassword.addEventListener('click', function() {
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+            this.querySelector('i').classList.toggle('mdi-eye-outline');
+            this.querySelector('i').classList.toggle('mdi-eye-off-outline');
+        });
+    });
+</script>

@@ -1,0 +1,100 @@
+﻿@model IEnumerable<informatic_asp_mvc.Models.Student>
+
+@{
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+}
+
+<div class="main-content" dir="rtl" style="margin-right: 2px; padding: 20px;">
+
+    <!-- رأس الصفحة -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="h3 mb-0 text-primary">إدارة الطلاب</h1>
+        <a asp-action="Create" class="btn btn-custom">
+            <i class="mdi mdi-plus-thick"></i> تسجيل طالب جديد
+        </a>
+    </div>
+
+    <!-- مربع التحكم -->
+    <div class="d-flex flex-wrap justify-content-between align-items-center mb-3">
+        <div class="d-flex" style="max-width: 800px;">
+            <input type="text" class="form-control rounded-start-pill" placeholder="بحث" style="border-right: none;">
+            <button class="btn btn-primary rounded-end-pill" type="button" style="border-left: none;">
+                <i class="mdi mdi-magnify"></i>
+            </button>
+        </div>
+        <button class="btn btn-primary" style="margin: 8px;">
+            <i class="mdi mdi-file-export"></i> تصدير البيانات
+        </button>
+    </div>
+
+    <!-- الجدول الاحترافي -->
+    <div class="table-responsive" style="overflow-x:auto;">
+        <table class="table table-striped" style="width: 100%;">
+            <thead class="table-primary">
+                <tr>
+                    <th scope="col">الرقم الجامعي <i class="mdi mdi-sort"></i></th>
+                    <th scope="col">الاسم الكامل <i class="mdi mdi-sort"></i></th>
+                    <th scope="col">السنة الدراسية <i class="mdi mdi-sort"></i></th>
+                    <th scope="col">الحالة <i class="mdi mdi-filter"></i></th>
+                    <th scope="col" class="text-center">الإجراءات</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var student in Model)
+                {
+                    <tr>
+                        <td>@student.STU_ID</td>
+                        <td>@student.STU_NAME</td>
+                        <td>
+                            <span class="badge bg-info text-dark">
+                                <i class="mdi mdi-school"></i> السنة @student.STU_YEAR
+                            </span>
+                        </td>
+                        <td>
+                            <span class="badge @GetStatusClass(student.STU_STATE)">
+                                @student.STU_STATE
+                            </span>
+                        </td>
+                        <td class="text-center">
+                            <div class="d-flex justify-content-center gap-2">
+                                <a asp-action="Edit" asp-route-id="@student.STU_ID" class="btn btn-sm btn-warning" data-bs-toggle="tooltip" title="تعديل">
+                                    <i class="mdi mdi-pencil"></i>
+                                </a>
+                                <a asp-action="Details" asp-route-id="@student.STU_ID" class="btn btn-sm btn-info" data-bs-toggle="tooltip" title="تفاصيل">
+                                    <i class="mdi mdi-eye"></i>
+                                </a>
+                                <a asp-action="Delete" asp-route-id="@student.STU_ID" class="btn btn-sm btn-danger" data-bs-toggle="tooltip" title="حذف">
+                                    <i class="mdi mdi-delete"></i>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <!-- الفوتر -->
+    <div class="d-flex justify-content-between align-items-center mt-4">
+        <div>عرض 1-@Model.Count() من @Model.Count() نتيجة</div>
+        <nav>
+            <ul class="pagination mb-0">
+                <li class="page-item active"><a class="page-link" href="#">1</a></li>
+            </ul>
+        </nav>
+    </div>
+</div>
+
+@functions {
+    private string GetStatusClass(string status)
+    {
+        switch (status.ToLower())
+        {
+            case "نشط": return "bg-success text-white";
+            case "موقوف": return "bg-warning text-dark";
+            case "خريج": return "bg-secondary text-white";
+            default: return "bg-light text-dark";
+        }
+    }
+}

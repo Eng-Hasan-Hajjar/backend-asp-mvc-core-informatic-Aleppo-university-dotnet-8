@@ -1,0 +1,318 @@
+﻿@using System.Security.Cryptography
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نظام إدارة كلية الهندسة المعلوماتية</title>
+    <!-- CSS Libraries -->
+    <!-- Material Design Icons -->
+    <!-- Bootstrap RTL -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+ 
+    <link href="https://cdn.jsdelivr.net/npm/font/css/materialdesignicons.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="stylesheet" href="styles/styles.css">
+    <script src="~/js/custom.js" defer></script>
+
+    @RenderSection("Styles", required: false)
+</head>
+<body>
+
+    <button class="sidebar-toggle" aria-label="تبديل القائمة">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z" />
+        </svg>
+    </button>
+    <div class="tab-system">
+
+
+        <!-- الشريط الجانبي -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <img src="~/res/img/college-logo.png"
+                     alt="شعار الكلية"
+                     class="college-logo"
+                     onerror="this.style.display='none'">
+                <h2>نظام إدارة الكلية</h2>
+            </div>
+
+            <ul class="nav-tabs">
+                <li data-tab="students">
+                    <i class="fas fa-users"></i>
+                    <span>الطلاب</span>
+                </li>
+                <li data-tab="posts">
+                    <i class="fas fa-newspaper"></i>
+                    <span>المنشورات</span>
+                </li>
+                <li data-tab="projects">
+                    <i class="fas fa-project-diagram"></i>
+                    <span>المشاريع</span>
+                </li>
+                <li data-tab="subjects">
+                    <i class="fas fa-book-open"></i>
+                    <span>المواد</span>
+                </li>
+                <li data-tab="admins">
+                    <i class="fas fa-user-shield"></i>
+                    <span>المشرفين</span>
+                </li>
+                <li data-tab="lectures">
+                    <i class="fas fa-chalkboard-teacher"></i>
+                    <span>المحاضرات</span>
+                </li>
+                <li data-tab="quizzes">
+                    <i class="fas fa-question-circle"></i>
+                    <span>الاختبارات</span>
+                </li>
+                <li data-tab="classes">
+                    <i class="fas fa-door-open"></i>
+                    <span>الفصول الدراسية</span>
+                </li>
+            </ul>
+        </div>
+
+
+        <!-- محتوى التبويبات -->
+        <div class="tab-content">
+            @RenderBody()
+            <!-- تبويب الطلاب -->
+            <div id="students" class="tab-pane active">
+                <h2>إدارة الطلاب</h2>
+                <button class="btn btn-success" onclick="showForm('student')">
+                    <i class="fas fa-user-plus"></i> إضافة طالب
+                </button>
+
+                <table class="dynamic-table">
+                    <thead>
+                        <tr>
+                            <th>الرقم الجامعي</th>
+                            <th>الاسم</th>
+                            <th>السنة</th>
+                            <th>الحالة</th>
+                            <th>الإجراءات</th>
+                        </tr>
+                    </thead>
+                    <tbody id="studentTable">
+                        <!-- بيانات افتراضية -->
+                        <tr>
+                            <td>20231001</td>
+                            <td>محمد أحمد حسن</td>
+                            <td>الثالثة</td>
+                            <td><span class="status-badge active">نشط</span></td>
+                            <td>
+                                <div class="action-btns">
+                                    <button class="btn btn-edit">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="btn btn-delete">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </button>
+                                    <button class="btn btn-info" onclick="showStudentDetails('student')">
+                                        <i class="fas fa-info-circle"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>20231002</td>
+                            <td>فاطمة خالد محمود</td>
+                            <td>الثانية</td>
+                            <td><span class="status-badge suspended">موقوف</span></td>
+                            <td>
+                                <div class="action-btns">
+                                    <button class="btn btn-edit">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="btn btn-delete">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </button>
+                                    <button class="btn btn-info">
+                                        <i class="fas fa-info-circle"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- تبويب المنشورات -->
+            <div id="posts" class="tab-pane">
+                <h2>إدارة المنشورات</h2>
+                <button class="btn btn-success" onclick="showForm('post')">+ إضافة منشور</button>
+
+                <table class="dynamic-table">
+                    <thead>
+                        <tr>
+                            <th>العنوان</th>
+                            <th>المحتوى</th>
+                            <th>التاريخ</th>
+                            <th>الدكتور</th>
+                            <th>الإجراءات</th>
+                        </tr>
+                    </thead>
+                    <tbody id="postTable"></tbody>
+                </table>
+            </div>
+
+            <!-- تبويب المشاريع -->
+            <div id="projects" class="tab-pane">
+                <h2>إدارة المشاريع</h2>
+
+                <button class="btn btn-success" onclick="showForm('project')">+ إضافة مشروع</button>
+
+
+                <table class="dynamic-table">
+                    <thead>
+                        <tr>
+                            <th>العنوان</th>
+                            <th>النوع</th>
+                            <th>الحالة</th>
+                            <th>المشرف</th>
+                            <th>الإجراءات</th>
+                        </tr>
+                    </thead>
+                    <tbody id="projectTable"></tbody>
+                </table>
+            </div>
+
+            <!-- تبويب المواد الدراسية -->
+            <div id="subjects" class="tab-pane">
+                <h2>إدارة المواد الدراسية</h2>
+                <button class="btn btn-success" onclick="showForm('subject')">+ إضافة مادة</button>
+
+                <table class="dynamic-table">
+                    <thead>
+                        <tr>
+                            <th>كود المادة</th>
+                            <th>اسم المادة</th>
+                            <th>النوع</th>
+                            <th>السنة</th>
+                            <th>الفصل</th>
+                            <th>الدكتور</th>
+                            <th>الإجراءات</th>
+                        </tr>
+                    </thead>
+                    <tbody id="subjectTable"></tbody>
+                </table>
+            </div>
+
+            <!-- تبويب المحاضرات -->
+            <div id="lectures" class="tab-pane">
+                <h2>إدارة المحاضرات</h2>
+                <button class="btn btn-success" onclick="showForm('lecture')">+ إضافة محاضرة</button>
+
+                <table class="dynamic-table">
+                    <thead>
+                        <tr>
+                            <th>عنوان المحاضرة</th>
+                            <th>نوع المادة</th>
+                            <th>الملف</th>
+                            <th>التاريخ</th>
+                            <th>ملاحظات</th>
+                            <th>الإجراءات</th>
+                        </tr>
+                    </thead>
+                    <tbody id="lectureTable"></tbody>
+                </table>
+            </div>
+
+            <!-- تبويب الاختبارات -->
+            <div id="quizzes" class="tab-pane">
+                <h2>إدارة الاختبارات</h2>
+                <button class="btn btn-success" onclick="showForm('quiz')">+ إضافة اختبار</button>
+
+                <table class="dynamic-table">
+                    <thead>
+                        <tr>
+                            <th>نص السؤال</th>
+                            <th>الإجابات</th>
+                            <th>الإجابة الصحيحة</th>
+                            <th>المادة</th>
+                            <th>الدكتور</th>
+                            <th>الإجراءات</th>
+                        </tr>
+                    </thead>
+                    <tbody id="quizTable"></tbody>
+                </table>
+            </div>
+
+            <!-- تبويب الفصول الدراسية -->
+            <div id="classes" class="tab-pane">
+                <h2>إدارة الفصول</h2>
+                <button class="btn btn-success" onclick="showForm('class')">+ إضافة فصل</button>
+
+                <table class="dynamic-table">
+                    <thead>
+                        <tr>
+                            <th>رقم الفصل</th>
+                            <th>ملف الحضور</th>
+                            <th>الإجراءات</th>
+                        </tr>
+                    </thead>
+                    <tbody id="classTable"></tbody>
+                </table>
+            </div>
+            <!-- تبويب المشرفين -->
+            <div id="admins" class="tab-pane">
+                <h2>إدارة المشرفين</h2>
+                <button class="btn btn-success" onclick="showForm('admin')">+ إضافة مشرف</button>
+
+                <table class="dynamic-table">
+                    <thead>
+                        <tr>
+                            <th>رقم المشرف</th>
+                            <th>الاسم</th>
+                            <th>الصلاحيات</th>
+                            <th>الإجراءات</th>
+                        </tr>
+                    </thead>
+                    <tbody id="adminTable"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    <!-- نموذج الإدخال  -->
+    <div id="studentmodal">
+    </div>
+    <div id="studentdetailsmodal">
+    </div>
+
+    <div id="editstudentmodal">
+    </div>
+
+    <div id="confirmdeletemodal">
+    </div>
+
+
+
+
+    <div id="postmodal">
+    </div>
+    <div id="projectmodal">
+    </div>
+    <div id="adminmodal">
+    </div>
+    <div id="subjectmodal">
+    </div>
+    <div id="lecturemodal">
+    </div>
+    <div id="classmodal">
+    </div>
+    <div id="quizmodal">
+    </div>
+
+    <script src="~/js/custom.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

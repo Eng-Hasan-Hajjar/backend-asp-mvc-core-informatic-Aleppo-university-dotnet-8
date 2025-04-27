@@ -1,0 +1,105 @@
+<div id="subjectModal" class="modal">
+    <div class="modal-content">
+        <h3 style="color: #2c3e50; margin-bottom: 30px; border-bottom: 2px solid #eee; padding-bottom: 15px;">
+            <i class="mdi mdi-book-plus"></i> إضافة مادة دراسية جديدة
+        </h3>
+        
+        <div class="modal-body">
+            <form id="subjectForm">
+                <div class="form-grid">
+                    <!-- العمود الأول -->
+                    <div>
+                        <div class="form-group">
+                            <label><i class="mdi mdi-identifier"></i> كود المادة</label>
+                            <input type="text" name="sub_id" required 
+                                   pattern="SUB-\d{3}" 
+                                   title="تنسيق: SUB-XXX (3 أرقام)">
+                            <small class="form-text">مثال: SUB-101</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label><i class="mdi mdi-book-open"></i> اسم المادة</label>
+                            <input type="text" name="sub_name" required 
+                                   maxlength="100"
+                                   placeholder="أدخل اسم المادة بالكامل">
+                        </div>
+
+                        <div class="form-group">
+                            <label><i class="mdi mdi-calendar"></i> السنة الدراسية</label>
+                            <select name="sub_year" required>
+                                <option value="" disabled selected>اختر السنة</option>
+                                <option value="الأولى">السنة الأولى</option>
+                                <option value="الثانية">السنة الثانية</option>
+                                <option value="الثالثة">السنة الثالثة</option>
+                                <option value="الرابعة">السنة الرابعة</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label><i class="mdi mdi-calendar-range"></i> الفصل الدراسي</label>
+                            <select name="sub_semester" required>
+                                <option value="" disabled selected>اختر الفصل</option>
+                                <option value="الأول">الفصل الأول</option>
+                                <option value="الثاني">الفصل الثاني</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- العمود الثاني -->
+                    <div>
+                        <div class="form-group">
+                            <label><i class="mdi mdi-doctor"></i> الدكتور المدرس</label>
+                            <select name="doc_id" required>
+                                <option value="" disabled selected>اختر الدكتور</option>
+                                <option value="DOC101">د. أحمد محمد</option>
+                                <option value="DOC102">د. سارة خالد</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label><i class="mdi mdi-tag"></i> نوع المادة</label>
+                            <div class="type-indicator">
+                                <select name="sub_type" class="type-select" required>
+                                    <option value="إجبارية">📚 إجبارية</option>
+                                    <option value="اختيارية">🎯 اختيارية</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label><i class="mdi mdi-calendar-clock"></i> تاريخ الامتحان</label>
+                            <input type="datetime-local" name="exam_date" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label><i class="mdi mdi-file-upload"></i> أسئلة الدورات</label>
+                            <input type="file" name="course_exams" 
+                                   accept=".pdf,.docx" 
+                                   multiple>
+                            <small class="form-text">صيغ مقبولة: PDF, DOCX</small>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- الوصف الأكاديمي -->
+                <div class="form-group">
+                    <label><i class="mdi mdi-text-box"></i> الوصف الأكاديمي</label>
+                    <textarea name="acad_describ" class="editor-content" 
+                              rows="6" required maxlength="1500"></textarea>
+                    <div class="char-counter">
+                        <span class="current-count">0</span>/1500 حرف
+                    </div>
+                </div>
+
+                <div class="action-btns">
+                    <button type="submit" class="btn btn-success">
+                        <i class="mdi mdi-content-save"></i> حفظ المادة
+                    </button>
+                    <button type="button" class="btn btn-danger" onclick="closeModal('subject')">
+                        <i class="mdi mdi-close"></i> إلغاء
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

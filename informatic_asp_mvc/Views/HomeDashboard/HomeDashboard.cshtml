@@ -1,0 +1,52 @@
+﻿@model IEnumerable<informatic_asp_mvc.Models.Student>
+
+
+@{
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+}
+
+
+
+
+
+
+
+<!-- شريط العنوان -->
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="h3 mb-0">مرحبا، أحمد محمد</h1>
+    <div class="d-flex gap-2">
+        <button class="btn-custom">
+            <i class="mdi mdi-bell"></i>
+            <span>الإشعارات</span>
+        </button>
+        <button class="btn-custom">
+            <i class="mdi mdi-logout"></i>
+            <span>تسجيل الخروج</span>
+        </button>
+    </div>
+</div>
+
+<!-- بطاقات الإحصاءات -->
+<div class="stats-grid">
+    <div class="stat-card">
+        <i class="mdi mdi-account stat-icon"></i>
+        <div>
+            <h4 class="mb-0">1,234</h4>
+            <small>طالب مسجل</small>
+        </div>
+    </div>
+    <div class="stat-card">
+        <i class="mdi mdi-book stat-icon"></i>
+        <div>
+            <h4 class="mb-0">45</h4>
+            <small>مقرر دراسي</small>
+        </div>
+    </div>
+    <div class="stat-card">
+        <i class="mdi mdi-file-document stat-icon"></i>
+        <div>
+            <h4 class="mb-0">89</h4>
+            <small>مشروع بحثي</small>
+        </div>
+    </div>
+</div>

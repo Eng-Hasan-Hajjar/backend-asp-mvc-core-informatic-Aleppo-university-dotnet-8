@@ -1,0 +1,64 @@
+<div id="adminModal" class="modal">
+    <div class="modal-content">
+        <h3 style="color: #2c3e50; margin-bottom: 30px; border-bottom: 2px solid #eee; padding-bottom: 15px;">
+            <i class="mdi mdi-account-key"></i> إضافة مشرف جديد
+        </h3>
+        
+        <div class="modal-body">
+            <form id="adminForm">
+                <div class="form-grid">
+                    <!-- العمود الأول -->
+                    <div>
+                        <div class="form-group">
+                            <label><i class="mdi mdi-identifier"></i> رقم المشرف</label>
+                            <input type="text" name="adm_id" required 
+                                   pattern="ADM-\d{3}" 
+                                   title="تنسيق: ADM-XXX (3 أرقام)">
+                            <small class="form-text">مثال: ADM-001</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label><i class="mdi mdi-account"></i> الاسم الكامل</label>
+                            <input type="text" name="adm_name" required 
+                                   pattern="[ء-ي\s]{3,}" 
+                                   title="يجب أن يحتوي على الأقل على 3 أحرف عربية">
+                        </div>
+                    </div>
+
+                    <!-- العمود الثاني -->
+                    <div>
+                        <div class="form-group">
+                            <label><i class="mdi mdi-shield-account"></i> الصلاحيات</label>
+                            <select name="adm_permission" class="permission-select" required>
+                                <option value="" disabled selected>اختر مستوى الصلاحية</option>
+                                <option value="كامل الصلاحيات">👑 كامل الصلاحيات</option>
+                                <option value="مشرف تقني">💻 مشرف تقني</option>
+                                <option value="مشرف أكاديمي">📚 مشرف أكاديمي</option>
+                                <option value="مشرف محدود">🔐 مشرف محدود</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label><i class="mdi mdi-lock"></i> كلمة المرور</label>
+                            <input type="password" name="adm_pass" required 
+                                   minlength="10" 
+                                   pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{10,}$"
+                                   title="يجب أن تحتوي على الأقل على 10 أحرف، حرف خاص، ورقم">
+                            <div class="password-strength"></div>
+                            <small class="form-text">شروط القوة: 10 أحرف، حرف خاص، رقم</small>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="action-btns">
+                    <button type="submit" class="btn btn-success">
+                        <i class="mdi mdi-content-save"></i> حفظ البيانات
+                    </button>
+                    <button type="button" class="btn btn-danger" onclick="closeModal('admin')">
+                        <i class="mdi mdi-close"></i> إلغاء
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

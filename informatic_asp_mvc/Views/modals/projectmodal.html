@@ -1,0 +1,96 @@
+<div id="projectModal" class="modal">
+    <div class="modal-content">
+        <h3 style="color: #2c3e50; margin-bottom: 30px; border-bottom: 2px solid #eee; padding-bottom: 15px;">
+            <i class="mdi mdi-folder-plus"></i> تسجيل مشروع جديد
+        </h3>
+        
+        <div class="modal-body">
+            <form id="projectForm">
+                <div class="form-grid">
+                    <!-- العمود الأول -->
+                    <div>
+                        <div class="form-group">
+                            <label><i class="mdi mdi-identifier"></i> رقم المشروع</label>
+                            <input type="text" name="pro_id" required pattern="PRO-\d{4}" 
+                                   title="تنسيق: PRO-XXXX (أرقام)">
+                        </div>
+
+                        <div class="form-group">
+                            <label><i class="mdi mdi-form-textbox"></i> عنوان المشروع</label>
+                            <input type="text" name="pro_title" required maxlength="150">
+                        </div>
+
+                        <div class="form-group">
+                            <label><i class="mdi mdi-calendar"></i> سنة التنفيذ</label>
+                            <input type="number" name="exec_year" required 
+                                   min="2000" max="2030" 
+                                   value="<?= date('Y') ?>">
+                        </div>
+
+                        <div class="form-group">
+                            <label><i class="mdi mdi-file-document"></i> ملف الأطروحة</label>
+                            <input type="file" name="pro_document" accept=".pdf,.docx" required>
+                            <small class="form-text">صيغ مقبولة: PDF, DOCX</small>
+                        </div>
+                    </div>
+
+                    <!-- العمود الثاني -->
+                    <div>
+                        <div class="form-group">
+                            <label><i class="mdi mdi-tools"></i> الأدوات المستخدمة</label>
+                            <select name="pro_tool" multiple class="tags-select" required>
+                                <option value="Java">Java</option>
+                                <option value="Python">Python</option>
+                                <option value="MySQL">MySQL</option>
+                                <option value="React">React</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label><i class="mdi mdi-account-tie"></i> المشرف الأكاديمي</label>
+                            <select name="doc_id" required>
+                                <option value="" disabled selected>اختر المشرف</option>
+                                <option value="DOC101">د. أحمد محمد</option>
+                                <option value="DOC102">د. سارة خالد</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label><i class="mdi mdi-clipboard-check"></i> حالة المشروع</label>
+                            <div class="status-indicator">
+                                <select name="pro_state" class="status-select" required>
+                                    <option value="جار الانتظار">🟡 جار الانتظار</option>
+                                    <option value="مقبول">🟢 مقبول</option>
+                                    <option value="مرفوض">🔴 مرفوض</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label><i class="mdi mdi-certificate"></i> العلامة النهائية</label>
+                            <input type="number" name="pro_deg" step="0.1" 
+                                   min="0" max="100" required>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- الوصف العام -->
+                <div class="form-group">
+                    <label><i class="mdi mdi-text-box"></i> الوصف العام</label>
+                    <textarea name="pro_describ" class="editor-content" 
+                              rows="5" required maxlength="1000"></textarea>
+                    <small class="form-text">الحد الأقصى: 1000 حرف</small>
+                </div>
+
+                <div class="action-btns">
+                    <button type="submit" class="btn btn-success">
+                        <i class="mdi mdi-content-save"></i> حفظ المشروع
+                    </button>
+                    <button type="button" class="btn btn-danger" onclick="closeModal('project')">
+                        <i class="mdi mdi-close"></i> إلغاء
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

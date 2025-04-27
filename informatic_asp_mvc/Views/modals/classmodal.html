@@ -1,0 +1,76 @@
+<div id="classModal" class="modal">
+    <div class="modal-content">
+        <h3 style="color: #2c3e50; margin-bottom: 30px; border-bottom: 2px solid #eee; padding-bottom: 15px;">
+            <i class="mdi mdi-door-closed"></i> إدارة الفصول الدراسية
+        </h3>
+        
+        <div class="modal-body">
+            <form id="classForm">
+                <div class="form-grid">
+                    <!-- العمود الأول -->
+                    <div>
+                        <div class="form-group">
+                            <label><i class="mdi mdi-identifier"></i> رقم الفصل</label>
+                            <input type="text" name="cls_id" required 
+                                   pattern="CLS-\d{3}" 
+                                   title="تنسيق: CLS-XXX (3 أرقام)">
+                            <small class="form-text">مثال: CLS-101</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label><i class="mdi mdi-map-marker"></i> موقع الفصل</label>
+                            <select name="class_location" required>
+                                <option value="" disabled selected>اختر المبنى</option>
+                                <option value="A">المبنى أ - الطابق الأول</option>
+                                <option value="B">المبنى ب - المعمل الحاسوبي</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- العمود الثاني -->
+                    <div>
+                        <div class="form-group">
+                            <label><i class="mdi mdi-file-upload"></i> ملف الحضور</label>
+                            <div class="file-upload-wrapper">
+                                <input type="file" name="attendance_file" 
+                                       accept=".csv,.xlsx" 
+                                       required
+                                       data-max-size="5MB">
+                                <div class="file-preview"></div>
+                                <small class="form-text">صيغ مقبولة: CSV, XLSX (حد أقصى 5MB)</small>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label><i class="mdi mdi-account-multiple"></i> السعة القصوى</label>
+                            <input type="number" name="max_capacity" 
+                                   min="10" max="50" 
+                                   value="30" required>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- معلومات إضافية -->
+                <div class="form-group">
+                    <label><i class="mdi mdi-note"></i> ملاحظات</label>
+                    <textarea name="class_notes" 
+                              rows="2" 
+                              maxlength="200"
+                              placeholder="ملاحظات حول الفصل..."></textarea>
+                    <div class="char-counter">
+                        <span class="current-count">0</span>/200 حرف
+                    </div>
+                </div>
+
+                <div class="action-btns">
+                    <button type="submit" class="btn btn-success">
+                        <i class="mdi mdi-content-save"></i> حفظ البيانات
+                    </button>
+                    <button type="button" class="btn btn-danger" onclick="closeModal('class')">
+                        <i class="mdi mdi-close"></i> إلغاء
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

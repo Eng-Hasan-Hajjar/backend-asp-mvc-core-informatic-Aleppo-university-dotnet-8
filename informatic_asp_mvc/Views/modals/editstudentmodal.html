@@ -1,0 +1,26 @@
+<div id="editStudentModal" class="modal">
+    <div class="modal-content">
+      <h3 style="color: #27ae60; margin-bottom: 30px; border-bottom: 2px solid #eee; padding-bottom: 15px;">
+        <i class="mdi mdi-account-edit"></i> تعديل بيانات الطالب
+      </h3>
+  
+      <form id="editStudentForm">
+        <input type="hidden" name="student_id" id="edit_student_id">
+        <!-- انسخ نفس محتويات نموذج الإضافة، ولكن استبدل جميع الحقول بأسماء تبدأ بـ "edit_" -->
+        <!-- على سبيل المثال: name="edit_stu_name" id="edit_stu_name" وهكذا -->
+        <!-- ثم قم بتعبئتها عبر JavaScript -->
+        
+        <!-- ... نفس محتوى نموذج الإضافة مع تغيير الأسماء فقط ... -->
+  
+        <div class="action-btns">
+          <button type="submit" class="btn btn-success">
+            <i class="mdi mdi-content-save-edit"></i> حفظ التعديلات
+          </button>
+          <button type="button" class="btn btn-danger" onclick="closeModal('editStudent')">
+            <i class="mdi mdi-close"></i> إلغاء
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+  

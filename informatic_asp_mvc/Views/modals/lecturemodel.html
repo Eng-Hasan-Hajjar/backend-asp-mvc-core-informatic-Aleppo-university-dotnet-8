@@ -1,0 +1,88 @@
+<div id="lectureModal" class="modal">
+    <div class="modal-content">
+        <h3 style="color: #2c3e50; margin-bottom: 30px; border-bottom: 2px solid #eee; padding-bottom: 15px;">
+            <i class="mdi mdi-presentation"></i> جدولة محاضرة جديدة
+        </h3>
+        
+        <div class="modal-body">
+            <form id="lectureForm">
+                <div class="form-grid">
+                    <!-- العمود الأول -->
+                    <div>
+                        <div class="form-group">
+                            <label><i class="mdi mdi-identifier"></i> رقم المحاضرة</label>
+                            <input type="text" name="lec_id" required 
+                                   pattern="LEC-\d{3}" 
+                                   title="تنسيق: LEC-XXX (3 أرقام)">
+                            <small class="form-text">مثال: LEC-101</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label><i class="mdi mdi-book-open"></i> المادة الدراسية</label>
+                            <select name="sub_id" class="subject-select" required>
+                                <option value="" disabled selected>اختر المادة</option>
+                                <option value="SUB-101">برمجة شيئية</option>
+                                <option value="SUB-102">قواعد البيانات</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label><i class="mdi mdi-calendar"></i> تاريخ المحاضرة</label>
+                            <input type="datetime-local" name="lec_date" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label><i class="mdi mdi-file-upload"></i> ملف المحاضرة</label>
+                            <input type="file" name="lec_file" 
+                                   accept=".pdf,.pptx" 
+                                   required>
+                            <small class="form-text">صيغ مقبولة: PDF, PPTX</small>
+                        </div>
+                    </div>
+
+                    <!-- العمود الثاني -->
+                    <div>
+                        <div class="form-group">
+                            <label><i class="mdi mdi-tag"></i> نوع المحاضرة</label>
+                            <select name="lec_type" required>
+                                <option value="" disabled selected>اختر النوع</option>
+                                <option value="نظري">📖 نظري</option>
+                                <option value="عملي">💻 عملي</option>
+                                <option value="مراجعة">🔄 مراجعة</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label><i class="mdi mdi-doctor"></i> المحاضر</label>
+                            <select name="doc_id" required>
+                                <option value="" disabled selected>اختر المحاضر</option>
+                                <option value="DOC-101">د. أحمد محمد</option>
+                                <option value="DOC-102">د. سارة خالد</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label><i class="mdi mdi-note"></i> ملاحظات إضافية</label>
+                            <textarea name="lec_note" 
+                                      rows="3" 
+                                      maxlength="500"
+                                      placeholder="ملاحظات حول المحاضرة..."></textarea>
+                            <div class="char-counter">
+                                <span class="current-count">0</span>/500 حرف
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="action-btns">
+                    <button type="submit" class="btn btn-success">
+                        <i class="mdi mdi-calendar-check"></i> حفظ المحاضرة
+                    </button>
+                    <button type="button" class="btn btn-danger" onclick="closeModal('lecture')">
+                        <i class="mdi mdi-close"></i> إلغاء
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,93 @@
+
+
+
+
+<div id="postModal" class="modal">
+    <div class="modal-content">
+        <h3 style="color: #2c3e50; margin-bottom: 30px; border-bottom: 2px solid #eee; padding-bottom: 15px;">
+            <i class="mdi mdi-newspaper-plus"></i> إنشاء منشور جديد
+        </h3>
+        
+        <div class="modal-body">
+            <form id="postForm">
+                <div class="form-grid">
+                    <!-- العمود الأول -->
+                    <div>
+                        <div class="form-group">
+                            <label><i class="mdi mdi-identifier"></i> رقم المنشور</label>
+                            <input type="text" name="pst_id" required pattern="[A-Z0-9]{6}">
+                            <small class="form-text">تنسيق: 6 أحرف/أرقام (مثال: PST001)</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label><i class="mdi mdi-form-textbox"></i> عنوان المنشور</label>
+                            <input type="text" name="pst_title" required maxlength="100">
+                        </div>
+
+                        <div class="form-group">
+                            <label><i class="mdi mdi-calendar-range"></i> تاريخ النشر</label>
+                            <input type="datetime-local" name="pst_date" required>
+                        </div>
+                    </div>
+
+                    <!-- العمود الثاني -->
+                    <div>
+                        <div class="form-group">
+                            <label><i class="mdi mdi-doctor"></i> الدكتور المشرف</label>
+                            <select name="doc_id" required>
+                                <option value="" disabled selected>اختر الدكتور</option>
+                                <!-- البيانات ستأتي من قاعدة البيانات -->
+                                <option value="DOC101">د. أحمد محمد</option>
+                                <option value="DOC102">د. سارة خالد</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label><i class="mdi mdi-account-school"></i> الطالب الناشر</label>
+                            <select name="stu_id" required>
+                                <option value="" disabled selected>اختر الطالب</option>
+                                <!-- البيانات ستأتي من قاعدة البيانات -->
+                                <option value="STU2023">محمد علي</option>
+                                <option value="STU2024">فاطمة حسن</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label><i class="mdi mdi-trending-up"></i> حالة المنشور</label>
+                            <div class="status-indicator">
+                                <select name="post_status" class="status-select">
+                                    <option value="معلق">معلق</option>
+                                    <option value="مرفوض">مرفوض</option>
+                                    <option value="منشور">منشور</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- محتوى المنشور -->
+                <div class="form-group">
+                    <label><i class="mdi mdi-text-box"></i> محتوى المنشور</label>
+                    <div class="editor-toolbar">
+                        <button type="button" class="btn-format" data-format="bold"><i class="mdi mdi-format-bold"></i></button>
+                        <button type="button" class="btn-format" data-format="italic"><i class="mdi mdi-format-italic"></i></button>
+                        <button type="button" class="btn-format" data-format="link"><i class="mdi mdi-link-variant"></i></button>
+                    </div>
+                    <textarea class="editor-content" name="pst_describ" required 
+                              placeholder="اكتب محتوى المنشور هنا..." 
+                              maxlength="2000"></textarea>
+                    <small class="form-text">الحد الأقصى: 2000 حرف</small>
+                </div>
+
+                <div class="action-btns">
+                    <button type="submit" class="btn btn-success">
+                        <i class="mdi mdi-content-save"></i> نشر
+                    </button>
+                    <button type="button" class="btn btn-danger" onclick="closeModal('post')">
+                        <i class="mdi mdi-close"></i> إلغاء
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

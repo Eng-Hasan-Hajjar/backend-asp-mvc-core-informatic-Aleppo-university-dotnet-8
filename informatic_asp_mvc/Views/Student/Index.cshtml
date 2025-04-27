@@ -7,12 +7,22 @@
 <div class="main-content" dir="rtl" style="margin-right: 2px; padding: 20px;">
 
     <!-- رأس الصفحة -->
-    <div class="d-flex justify-content-between align-items-center mb-4">
+    @*  <div class="d-flex justify-content-between align-items-center mb-4">
         <h1 class="h3 mb-0 text-primary">إدارة الطلاب</h1>
         <a asp-action="Create" class="btn btn-custom">
             <i class="mdi mdi-plus-thick"></i> تسجيل طالب جديد
         </a>
     </div>
+    <!-- احذف الزر القديم -->
+    <a asp-action="Create" class="btn btn-custom">...</a> *@
+
+    <!-- أبقى على هذا الزر فقط -->
+    <button type="button"
+            class="btn btn-custom"
+            data-bs-toggle="modal"
+            data-bs-target="#studentModal">
+        <i class="mdi mdi-plus-thick"></i> تسجيل طالب جديد
+    </button>
 
     <!-- مربع التحكم -->
     <div class="d-flex flex-wrap justify-content-between align-items-center mb-3">
@@ -97,4 +107,75 @@
             default: return "bg-light text-dark";
         }
     }
+}
+
+    @* تعديل استدعاء الجزئي مع تمرير مودل جديد 
+    @await Html.PartialAsync("_CreateModal", new informatic_asp_mvc.Models.Student())
+    *@
+
+    @section Scripts {
+        @{
+            await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        }
+        @{
+            await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        }
+
+    <script>
+           $(document).ready(function () {
+                       if (typeof bootstrap === 'undefined' && typeof $().modal === 'function') {
+                            window.bootstrap = { Modal: $.fn.modal.Constructor };
+                        }
+            // تهيئة المودال
+            var studentModal = new bootstrap.Modal(document.getElementById('studentModal'));
+
+            // فتح المودال عند النقر على الزر
+            $('.btn-custom').click(function () {
+                studentModal.show();
+            });
+
+            // معالجة إرسال الفورم
+            $('#createForm').on('submit', function (e) {
+            e.preventDefault();
+
+            var form = $(this);
+            if (!form[0].checkValidity()) {
+                form.addClass('was-validated');
+                return;
+            }
+
+            $.ajax({
+                    url: form.attr('action'),
+                    type: 'POST',
+                    data: form.serialize(),
+                    success: function (response) {
+                        if (response.success) {
+                            studentModal.hide();
+                            location.reload();
+                        } else {
+                            $('#studentModal').html(response);
+                        }
+                    },
+                    error: function (xhr) {
+                        $('#studentModal').html(xhr.responseText);
+                    }
+                    });
+                });
+
+
+
+                error: function (xhr) {
+                    if (xhr.status === 400) {
+                        $('#studentModal').html(xhr.responseText);
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'خطأ',
+                            text: 'حدث خطأ غير متوقع'
+                        });
+                    }
+                }
+
+
+        </script>
 }

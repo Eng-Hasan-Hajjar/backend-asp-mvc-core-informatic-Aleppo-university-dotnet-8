@@ -141,3 +141,4 @@ C:\Users\engya\source\repos\informatic_asp_mvc\informatic_asp_mvc\obj\Debug\net8
 C:\Users\engya\source\repos\informatic_asp_mvc\informatic_asp_mvc\bin\Debug\net8.0\wwwroot\res\img\college-logo.png
 C:\Users\engya\source\repos\informatic_asp_mvc\informatic_asp_mvc\bin\Debug\net8.0\package-lock.json
 C:\Users\engya\source\repos\informatic_asp_mvc\informatic_asp_mvc\bin\Debug\net8.0\package.json
+C:\Users\engya\source\repos\informatic_asp_mvc\informatic_asp_mvc\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt

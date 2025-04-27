@@ -40,6 +40,8 @@ namespace informatic_asp_mvc.Models
         public string NATIONAL_NUMBER { get; set; }
 
         // الحقل الجديد للرقم 
+        [Required(ErrorMessage = "رقم الهاتف مطلوب")]
+        [Phone(ErrorMessage = "رقم هاتف غير صحيح")]
         public string PHONE_NUMBER { get; set; }
 
     }

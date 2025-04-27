@@ -4,7 +4,7 @@
     Layout = null; 
 }
 
-<div class="modal fade" id="studentModal" tabindex="-1" aria-labelledby="studentModalLabel" aria-hidden="true">
+<div class="modal fade" id="studentModal" tabindex="-1" aria-labelledby="studentModalLabel" aria-modal="true" >
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -25,14 +25,14 @@
                             </div>
 
                             <div class="form-group">
-                                <label asp-for="NATIONAL_NUMBER" class="control-label">الرقم الوطني</label>
-                                <input asp-for="NATIONAL_NUMBER" class="form-control" />
+                                <label asp-for="NATIONAL_NUMBER" class="control-label"> <i class="mdi mdi-email me-1"></i> الرقم الوطني</label>
+                                <input asp-for="NATIONAL_NUMBER" type="text" class="form-control" required />
                                 <span asp-validation-for="NATIONAL_NUMBER" class="text-danger"></span>
                             </div>
 
                             <div class="form-group">
-                                <label asp-for="PHONE_NUMBER" class="control-label">رقم الهاتف</label>
-                                <input asp-for="PHONE_NUMBER" class="form-control" />
+                                <label asp-for="PHONE_NUMBER" class="control-label"><i class="mdi mdi-phon me-1"></i>رقم الهاتف</label>
+                                <input asp-for="PHONE_NUMBER" type="text" class="form-control" required />
                                 <span asp-validation-for="PHONE_NUMBER" class="text-danger"></span>
                             </div>
 
@@ -162,6 +162,13 @@
 
                 </div>
                 <div class="modal-footer">
+                    <button type="button"
+                            class="btn btn-secondary"
+                            data-bs-dismiss="modal"
+                            onclick="window.location.reload()">
+                        
+                        إغلاق
+                    </button>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إغلاق</button>
                     <button type="submit" class="btn btn-primary">حفظ</button>
                 </div>

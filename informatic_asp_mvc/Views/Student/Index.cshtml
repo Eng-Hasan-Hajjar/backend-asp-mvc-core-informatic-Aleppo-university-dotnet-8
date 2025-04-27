@@ -109,19 +109,22 @@
     }
 }
 
-    @* تعديل استدعاء الجزئي مع تمرير مودل جديد 
+    @* تعديل استدعاء الجزئي مع تمرير مودل جديد  
     @await Html.PartialAsync("_CreateModal", new informatic_asp_mvc.Models.Student())
+    
     *@
 
     @section Scripts {
         @{
             await Html.RenderPartialAsync("_ValidationScriptsPartial");
         }
-        @{
-            await Html.RenderPartialAsync("_ValidationScriptsPartial");
-        }
+    @{
+        await Html.RenderPartialAsync("_CreateModal", new informatic_asp_mvc.Models.Student());
+    }
+
 
     <script>
+
            $(document).ready(function () {
                        if (typeof bootstrap === 'undefined' && typeof $().modal === 'function') {
                             window.bootstrap = { Modal: $.fn.modal.Constructor };
@@ -135,46 +138,40 @@
             });
 
             // معالجة إرسال الفورم
-            $('#createForm').on('submit', function (e) {
+         $('#createForm').on('submit', function (e) {
             e.preventDefault();
 
             var form = $(this);
-            if (!form[0].checkValidity()) {
-                form.addClass('was-validated');
-                return;
-            }
-
             $.ajax({
-                    url: form.attr('action'),
-                    type: 'POST',
-                    data: form.serialize(),
-                    success: function (response) {
-                        if (response.success) {
-                            studentModal.hide();
-                            location.reload();
-                        } else {
-                            $('#studentModal').html(response);
+                url: form.attr('action'),
+                type: 'POST',
+                data: form.serialize(),
+                success: function (response) {
+                    if (response.success) {
+                        $('#studentModal').modal('hide');
+                        if (response.redirectUrl) {
+                            window.location.href = response.redirectUrl;
                         }
-                    },
-                    error: function (xhr) {
-                        $('#studentModal').html(xhr.responseText);
-                    }
-                    });
-                });
-
-
-
-                error: function (xhr) {
-                    if (xhr.status === 400) {
-                        $('#studentModal').html(xhr.responseText);
                     } else {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'خطأ',
-                            text: 'حدث خطأ غير متوقع'
-                        });
+                        $('#studentModal .modal-body').html(response);
+                        $.validator.unobtrusive.parse('#createForm');
                     }
+                },
+                error: function (xhr) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'خطأ',
+                        text: xhr.status === 500 ? xhr.responseJSON.error : 'حدث خطأ غير متوقع'
+                    });
                 }
+            });
+        });
+
+
+
+
+
+
 
 
         </script>

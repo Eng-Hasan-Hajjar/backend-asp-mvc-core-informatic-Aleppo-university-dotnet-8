@@ -26,6 +26,8 @@ namespace informatic_asp_mvc.Models
 
         public double? BAC_AVG { get; set; }
 
+        [Required(ErrorMessage = "كلمة المرور مطلوبة")]
+    
         public string STU_PASS { get; set; }
 
         public string STU_STATE { get; set; }

@@ -7,11 +7,12 @@ namespace informatic_asp_mvc.Controllers
     public class StudentController : Controller
     {
         private readonly ApplicationDbContext _context;
-        private object _logger;
+        private readonly ILogger<StudentController> _logger;
 
-        public StudentController(ApplicationDbContext context)
+        public StudentController(ApplicationDbContext context, ILogger<StudentController> logger)
         {
             _context = context;
+            _logger = logger;
         }
 
         public IActionResult Index()
@@ -24,34 +25,49 @@ namespace informatic_asp_mvc.Controllers
         public IActionResult Create()
         {
             return PartialView("_CreateModal", new Student()); // إرجاع مودل جديد
+
+         
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Student student)
         {
+            if (!ModelState.IsValid)
+            {
+                return PartialView("_CreateModal", student);
+            }
+
             try
             {
-                if (ModelState.IsValid)
+                // التحقق من التكرار
+                if (await _context.Students.AnyAsync(s => s.NATIONAL_NUMBER == student.NATIONAL_NUMBER))
                 {
-                    if (_context.Students.Any(s => s.NATIONAL_NUMBER == student.NATIONAL_NUMBER))
-                    {
-                        ModelState.AddModelError("NATIONAL_NUMBER", "الرقم الوطني مسجل مسبقاً");
-                        return PartialView("_CreateModal", student);
-                    }
-
-                    await _context.Students.AddAsync(student);
-                    await _context.SaveChangesAsync();
-                    return Json(new { success = true });
+                    ModelState.AddModelError("NATIONAL_NUMBER", "الرقم الوطني مسجل مسبقاً");
+                    return PartialView("_CreateModal", student);
                 }
-                return PartialView("_CreateModal", student);
+
+                // حفظ البيانات
+                await _context.Students.AddAsync(student);
+                await _context.SaveChangesAsync();
+
+                // إرجاع استجابة JSON مع رابط التوجيه
+                return Json(new
+                {
+                    success = true,
+                    redirectUrl = Url.Action("Index", "Student")
+                });
             }
             catch (Exception ex)
             {
-                // تسجيل الخطأ
-             
-                return StatusCode(500, new { error = "حدث خطأ داخلي" });
+                _logger.LogError(ex, "حدث خطأ أثناء الحفظ");
+                return Json(new
+                {
+                    success = false,
+                    error = "حدث خطأ غير متوقع. يرجى المحاولة مرة أخرى."
+                });
             }
         }
+
 
 
         public IActionResult Edit(int id)

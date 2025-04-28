@@ -1,19 +1,19 @@
 ﻿@model informatic_asp_mvc.Models.Student
 @{
-    // هذه السطر ضروري إذا كان المودال يُستخدم كجزئي
-    Layout = null; 
+    Layout = null;
 }
 
-<div class="modal fade" id="studentModal" tabindex="-1" aria-labelledby="studentModalLabel" aria-modal="true">
+<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-modal="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="studentModalLabel">تسجيل طالب جديد</h5>
+                <h5 class="modal-title" id="editModalLabel">تعديل بيانات الطالب</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form id="createForm" asp-action="Create" method="post">
+            <form id="editForm" asp-action="Edit" method="post">
                 <div class="modal-body">
                     @Html.AntiForgeryToken()
+                    <input type="hidden" asp-for="STU_ID" />
                     <div class="row g-3">
                         <!-- العمود الأول -->
                         <div class="col-md-6">
@@ -22,60 +22,48 @@
                                 <input type="text" asp-for="STU_NAME" class="form-control" required />
                                 <span asp-validation-for="STU_NAME" class="text-danger"></span>
                             </div>
-
-
                             <div class="mb-3">
                                 <label asp-for="NATIONAL_NUMBER" class="form-label"><i class="mdi mdi-card-account-details me-1"></i> الرقم الوطني</label>
                                 <input asp-for="NATIONAL_NUMBER" class="form-control" required />
                                 <span asp-validation-for="NATIONAL_NUMBER" class="text-danger"></span>
                             </div>
-
                             <div class="mb-3">
                                 <label asp-for="PHONE_NUMBER" class="form-label"><i class="mdi mdi-phone me-1"></i> رقم الهاتف</label>
                                 <input asp-for="PHONE_NUMBER" class="form-control" required />
                                 <span asp-validation-for="PHONE_NUMBER" class="text-danger"></span>
                             </div>
-
                             <div class="mb-3">
                                 <label class="form-label"><i class="mdi mdi-human-male me-1"></i> اسم الأب</label>
                                 <input type="text" asp-for="STU_FTHR" class="form-control" required />
                                 <span asp-validation-for="STU_FTHR" class="text-danger"></span>
                             </div>
-
                             <div class="mb-3">
                                 <label class="form-label"><i class="mdi mdi-human-female me-1"></i> اسم الأم</label>
                                 <input type="text" asp-for="STU_MTHR" class="form-control" required />
                                 <span asp-validation-for="STU_MTHR" class="text-danger"></span>
                             </div>
-
                             <div class="mb-3">
                                 <label class="form-label"><i class="mdi mdi-calendar me-1"></i> تاريخ الميلاد</label>
                                 <input type="date" asp-for="STU_BRTH" class="form-control" required />
                                 <span asp-validation-for="STU_BRTH" class="text-danger"></span>
                             </div>
                         </div>
-
                         <!-- العمود الثاني -->
-                        
-                    
-
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label class="form-label"><i class="mdi mdi-account me-1"></i> الاسم المستعار</label>
                                 <input type="text" asp-for="STU_NICK" class="form-control" />
                                 <span asp-validation-for="STU_NICK" class="text-danger"></span>
                             </div>
-
                             <div class="mb-3">
                                 <label class="form-label"><i class="mdi mdi-calendar-check me-1"></i> تاريخ الالتحاق</label>
                                 <input type="date" asp-for="JOIN_DATE" class="form-control" required />
                                 <span asp-validation-for="JOIN_DATE" class="text-danger"></span>
                             </div>
-
                             <div class="mb-3">
                                 <label class="form-label"><i class="mdi mdi-school me-1"></i> السنة الدراسية</label>
                                 <select asp-for="STU_YEAR" class="form-select" required>
-                                    <option value="" disabled selected>اختر السنة</option>
+                                    <option value="" disabled>اختر السنة</option>
                                     <option value="1">الأولى</option>
                                     <option value="2">الثانية</option>
                                     <option value="3">الثالثة</option>
@@ -83,7 +71,6 @@
                                 </select>
                                 <span asp-validation-for="STU_YEAR" class="text-danger"></span>
                             </div>
-
                             <div class="mb-3">
                                 <label class="form-label"><i class="mdi mdi-shield-account me-1"></i> الحالة الدراسية</label>
                                 <select asp-for="STU_STATE" class="form-select" required>
@@ -93,18 +80,15 @@
                                 </select>
                                 <span asp-validation-for="STU_STATE" class="text-danger"></span>
                             </div>
-
                             <div class="mb-3">
                                 <label class="form-label"><i class="mdi mdi-lock me-1"></i> كلمة المرور</label>
                                 <div class="input-group">
-                                    <input type="password" asp-for="STU_PASS" class="form-control" required minlength="8" id="passwordInput" />
-                                   
+                                    <input type="password" asp-for="STU_PASS" class="form-control" required minlength="8" id="editPasswordInput" />
                                     <span asp-validation-for="STU_PASS" class="text-danger"></span>
                                 </div>
                             </div>
                         </div>
                     </div>
-
                     <!-- القسم السفلي -->
                     <div class="row g-3 mt-2">
                         <div class="col-md-3">
@@ -120,7 +104,6 @@
                                 <span asp-validation-for="NATIONALITY" class="text-danger"></span>
                             </div>
                         </div>
-
                         <div class="col-md-3">
                             <div class="mb-3">
                                 <label class="form-label"><i class="mdi mdi-percent me-1"></i> معدل الثانوية</label>
@@ -128,7 +111,6 @@
                                 <span asp-validation-for="BAC_AVG" class="text-danger"></span>
                             </div>
                         </div>
-
                         <div class="col-md-3">
                             <div class="mb-3">
                                 <label class="form-label"><i class="mdi mdi-account-group me-1"></i> نوع المفاضلة</label>
@@ -139,7 +121,6 @@
                                 <span asp-validation-for="COMPAR_TYPE" class="text-danger"></span>
                             </div>
                         </div>
-
                         <div class="col-md-3">
                             <div class="mb-3">
                                 <label class="form-label"><i class="mdi mdi-door-open me-1"></i> رقم الفصل العملي</label>
@@ -147,7 +128,6 @@
                                 <span asp-validation-for="CLS_ID" class="text-danger"></span>
                             </div>
                         </div>
-
                         <div class="col-md-3">
                             <div class="mb-3">
                                 <label class="form-label"><i class="mdi mdi-gender-male-female me-1"></i> الجنس</label>
@@ -162,12 +142,13 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إغلاق</button>
-                    <button type="submit" class="btn btn-primary">حفظ</button>
+                    <button type="submit" class="btn btn-primary">حفظ التغييرات</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
+
 
 
 @section Scripts {
@@ -198,6 +179,18 @@
                 localStorage.removeItem('tempPassword');
             }
         });
+
+
+
+           $(document).ready(function () {
+            // إعادة تعيين النموذج عند إغلاق المودال
+            $('#editModal').on('hidden.bs.modal', function () {
+                $('#editForm')[0].reset();
+                $('#editModal .modal-body').empty();
+            });
+        });
+
+
     </script>
 }
 

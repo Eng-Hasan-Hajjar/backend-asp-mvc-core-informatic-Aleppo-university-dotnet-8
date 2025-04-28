@@ -417,17 +417,17 @@ namespace informatic_asp_mvc.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("STU_ID"));
 
-                    b.Property<double?>("BAC_AVG")
+                    b.Property<double>("BAC_AVG")
                         .HasColumnType("float");
 
-                    b.Property<int?>("CLS_ID")
+                    b.Property<int>("CLS_ID")
                         .HasColumnType("int");
 
                     b.Property<string>("COMPAR_TYPE")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("JOIN_DATE")
+                    b.Property<DateTime>("JOIN_DATE")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("NATIONALITY")
@@ -442,7 +442,7 @@ namespace informatic_asp_mvc.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("STU_BRTH")
+                    b.Property<DateTime>("STU_BRTH")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("STU_FTHR")
@@ -473,7 +473,7 @@ namespace informatic_asp_mvc.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("STU_YEAR")
+                    b.Property<int>("STU_YEAR")
                         .HasColumnType("int");
 
                     b.HasKey("STU_ID");

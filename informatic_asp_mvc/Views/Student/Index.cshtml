@@ -6,17 +6,7 @@
 
 <div class="main-content" dir="rtl" style="margin-right: 2px; padding: 20px;">
 
-    <!-- رأس الصفحة -->
-    @*  <div class="d-flex justify-content-between align-items-center mb-4">
-        <h1 class="h3 mb-0 text-primary">إدارة الطلاب</h1>
-        <a asp-action="Create" class="btn btn-custom">
-            <i class="mdi mdi-plus-thick"></i> تسجيل طالب جديد
-        </a>
-    </div>
-    <!-- احذف الزر القديم -->
-    <a asp-action="Create" class="btn btn-custom">...</a> *@
-
-    <!-- أبقى على هذا الزر فقط -->
+  
     <button type="button"
             class="btn btn-custom"
             data-bs-toggle="modal"
@@ -68,12 +58,15 @@
                         </td>
                         <td class="text-center">
                             <div class="d-flex justify-content-center gap-2">
-                                <a asp-action="Edit" asp-route-id="@student.STU_ID" class="btn btn-sm btn-warning" data-bs-toggle="tooltip" title="تعديل">
+                                <button type="button" class="btn btn-sm btn-warning btn-edit" data-id="@student.STU_ID" data-bs-toggle="tooltip" title="تعديل">
                                     <i class="mdi mdi-pencil"></i>
-                                </a>
-                                <a asp-action="Details" asp-route-id="@student.STU_ID" class="btn btn-sm btn-info" data-bs-toggle="tooltip" title="تفاصيل">
-                                    <i class="mdi mdi-eye"></i>
-                                </a>
+                                </button>
+                                <button type="button" class="btn btn-info btn-sm btn-details" data-id="@student.STU_ID" data-bs-toggle="modal" title="تفاصيل">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+
+
+
                                 <a asp-action="Delete" asp-route-id="@student.STU_ID" class="btn btn-sm btn-danger" data-bs-toggle="tooltip" title="حذف">
                                     <i class="mdi mdi-delete"></i>
                                 </a>
@@ -108,86 +101,208 @@
         }
     }
 }
-
-    @* تعديل استدعاء الجزئي مع تمرير مودل جديد  
-    @await Html.PartialAsync("_CreateModal", new informatic_asp_mvc.Models.Student())
-    
-    *@
-
-    @section Scripts {
-        @{
-            await Html.RenderPartialAsync("_ValidationScriptsPartial");
-        }
+@section Scripts {
     @{
-        await Html.RenderPartialAsync("_CreateModal", new informatic_asp_mvc.Models.Student());
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
 
-
     <script>
+        $(document).ready(function () {
+            // تهيئة المودال للإضافة (سيتم تحميله ديناميكيًا)
+            var studentModal;
 
-           $(document).ready(function () {
-                       if (typeof bootstrap === 'undefined' && typeof $().modal === 'function') {
-                            window.bootstrap = { Modal: $.fn.modal.Constructor };
-                        }
-            // تهيئة المودال
-            var studentModal = new bootstrap.Modal(document.getElementById('studentModal'));
+            // تهيئة المودال للتعديل (سيتم تحميله ديناميكيًا)
+            var editModal;
 
-            // فتح المودال عند النقر على الزر
+            // تهيئة المودال لعرض التفاصيل
+            var detailsModal;
+
+            // فتح مودال الإضافة عند النقر على الزر
             $('.btn-custom').click(function () {
-                studentModal.show();
+                $.ajax({
+                    url: '@Url.Action("Create", "Student")',
+                    type: 'GET',
+                    success: function (data) {
+                        // إضافة الموديل إلى الصفحة
+                        $('body').append(data);
+                        studentModal = new bootstrap.Modal(document.getElementById('studentModal'));
+                        studentModal.show();
+                        $.validator.unobtrusive.parse('#createForm');
+                    },
+                    error: function (xhr) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'خطأ',
+                            text: 'فشل في تحميل نموذج إضافة الطالب'
+                        });
+                    }
+                });
             });
 
-            // معالجة إرسال الفورم
+            // معالجة إرسال نموذج الإضافة
             $(document).on('submit', '#createForm', function (e) {
-                     e.preventDefault();
+                e.preventDefault();
+                var form = $(this);
+                $.ajax({
+                    url: form.attr('action'),
+                    type: 'POST',
+                    data: form.serialize(),
+                    success: function (response) {
+                        if (response.success) {
+                            studentModal.hide();
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'تم الحفظ',
+                                text: 'تم إضافة الطالب بنجاح',
+                                showConfirmButton: false,
+                                timer: 1500
+                            });
+                            form[0].reset();
+                            if (response.redirectUrl) {
+                                window.location.href = response.redirectUrl;
+                            }
+                        } else {
+                            if (response.errors) {
+                                let errorMessages = [];
+                                for (let field in response.errors) {
+                                    response.errors[field].forEach(error => {
+                                        errorMessages.push(`${field}: ${error}`);
+                                    });
+                                }
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'خطأ في التحقق',
+                                    html: errorMessages.join('<br>')
+                                });
+                            }
+                            if (response.partialView) {
+                                $('#studentModal .modal-body').html(response.partialView);
+                                $.validator.unobtrusive.parse('#createForm');
+                            }
+                        }
+                    },
+                    error: function (xhr) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'خطأ',
+                            text: xhr.responseJSON?.error || 'حدث خطأ غير متوقع'
+                        });
+                    }
+                });
+            });
 
-                     var form = $(this);
-                     $.ajax({
-                         url: form.attr('action'),
-                         type: 'POST',
-                         data: form.serialize(),
-                         success: function (response) {
-                             if (response.success) {
-                                 studentModal.hide();
-                                 Swal.fire({
-                                     icon: 'success',
-                                     title: 'تم الحفظ',
-                                     text: 'تم إضافة الطالب بنجاح',
-                                     showConfirmButton: false,
-                                     timer: 1500
-                                 }).then(() => {
-                                     if (response.redirectUrl) {
-                                         window.location.href = response.redirectUrl;
-                                     }
-                                 });
-                             } else {
-                                 $('#studentModal .modal-body').html(response);
-                                 $.validator.unobtrusive.parse('#createForm');
-                             }
-                         },
-                         error: function (xhr) {
-                             Swal.fire({
-                                 icon: 'error',
-                                 title: 'خطأ',
-                                 text: xhr.responseJSON?.error || 'حدث خطأ غير متوقع'
-                             });
-                         }
-                     });
-                 });
+            // فتح مودال التعديل عند الضغط على زر التعديل
+            $(document).on('click', '.btn-edit', function (e) {
+                e.preventDefault();
+                var studentId = $(this).data('id');
+                $.ajax({
+                    url: '@Url.Action("Edit", "Student")',
+                    type: 'GET',
+                    data: { id: studentId },
+                    success: function (data) {
+                        // إضافة الموديل إلى الصفحة
+                        $('body').append(data);
+                        editModal = new bootstrap.Modal(document.getElementById('editModal'));
+                        editModal.show();
+                        $.validator.unobtrusive.parse('#editForm');
+                    },
+                    error: function (xhr) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'خطأ',
+                            text: xhr.responseJSON?.error || 'فشل في تحميل بيانات الطالب'
+                        });
+                    }
+                });
+            });
 
+            // معالجة إرسال نموذج التعديل
+            $(document).on('submit', '#editForm', function (e) {
+                e.preventDefault();
+                var form = $(this);
+                $.ajax({
+                    url: form.attr('action'),
+                    type: 'POST',
+                    data: form.serialize(),
+                    success: function (response) {
+                        if (response.success) {
+                            editModal.hide();
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'تم التعديل',
+                                text: 'تم تعديل بيانات الطالب بنجاح',
+                                showConfirmButton: false,
+                                timer: 1500
+                            });
+                            if (response.redirectUrl) {
+                                window.location.href = response.redirectUrl;
+                            }
+                        } else {
+                            if (response.errors) {
+                                let errorMessages = [];
+                                for (let field in response.errors) {
+                                    response.errors[field].forEach(error => {
+                                        errorMessages.push(`${field}: ${error}`);
+                                    });
+                                }
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'خطأ في التحقق',
+                                    html: errorMessages.join('<br>')
+                                });
+                            }
+                            if (response.partialView) {
+                                $('#editModal .modal-body').html(response.partialView);
+                                $.validator.unobtrusive.parse('#editForm');
+                            }
+                        }
+                    },
+                    error: function (xhr) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'خطأ',
+                            text: xhr.responseJSON?.error || 'حدث خطأ غير متوقع'
+                        });
+                    }
+                });
+            });
 
+            // فتح مودال التفاصيل
+            $(document).on('click', '.btn-details', function () {
+                var studentId = $(this).data('id');
+                $.ajax({
+                    url: '@Url.Action("Details", "Student")',
+                    type: 'GET',
+                    data: { id: studentId },
+                    success: function (data) {
+                        $('body').append(data);
+                        detailsModal = new bootstrap.Modal(document.getElementById('detailsModal'));
+                        detailsModal.show();
+                    },
+                    error: function (xhr) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'خطأ',
+                            text: xhr.responseJSON?.error || 'فشل في تحميل تفاصيل الطالب'
+                        });
+                    }
+                });
+            });
 
+            // إعادة تعيين مودال الإضافة عند الإغلاق
+            $(document).on('hidden.bs.modal', '#studentModal', function () {
+                $(this).remove(); // إزالة الموديل من DOM
+            });
 
+            // إعادة تعيين مودال التعديل عند الإغلاق
+            $(document).on('hidden.bs.modal', '#editModal', function () {
+                $(this).remove(); // إزالة الموديل من DOM
+            });
 
-
+            // إعادة تعيين مودال التفاصيل عند الإغلاق
+            $(document).on('hidden.bs.modal', '#detailsModal', function () {
+                $(this).remove(); // إزالة الموديل من DOM
+            });
         });
-
-
-
-
-
-
-
-
-        </script>
+    </script>
 }

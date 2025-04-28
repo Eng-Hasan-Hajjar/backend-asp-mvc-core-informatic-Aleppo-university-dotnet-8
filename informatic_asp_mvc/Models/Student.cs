@@ -19,7 +19,7 @@ namespace informatic_asp_mvc.Models
         [Required(ErrorMessage = "اسم الأم مطلوب")]
         public string STU_MTHR { get; set; }
 
-        public string STU_NICK { get; set; } // اختياري
+        public string? STU_NICK { get; set; } // اختياري
 
         [DataType(DataType.Date)]
         [Required(ErrorMessage = "تاريخ الميلاد مطلوب")]

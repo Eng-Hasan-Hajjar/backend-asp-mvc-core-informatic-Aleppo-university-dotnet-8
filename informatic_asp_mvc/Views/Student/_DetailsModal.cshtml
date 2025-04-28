@@ -1,0 +1,92 @@
+﻿@model informatic_asp_mvc.Models.Student
+@{
+    Layout = null;
+}
+
+<div class="modal fade" id="detailsModal" tabindex="-1" aria-labelledby="detailsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="detailsModalLabel">
+                    <i class="mdi mdi-account-details me-2"></i> تفاصيل الطالب
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row g-3">
+                    <!-- العمود الأول -->
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label text-muted"><i class="mdi mdi-account-outline me-1"></i> الاسم الكامل</label>
+                            <p class="form-control-static">@(Model?.STU_NAME ?? "غير متوفر")</p>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label text-muted"><i class="mdi mdi-card-account-details me-1"></i> الرقم الوطني</label>
+                            <p class="form-control-static">@(Model?.NATIONAL_NUMBER ?? "غير متوفر")</p>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label text-muted"><i class="mdi mdi-phone me-1"></i> رقم الهاتف</label>
+                            <p class="form-control-static">@(Model?.PHONE_NUMBER ?? "غير متوفر")</p>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label text-muted"><i class="mdi mdi-human-male me-1"></i> اسم الأب</label>
+                            <p class="form-control-static">@(Model?.STU_FTHR ?? "غير متوفر")</p>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label text-muted"><i class="mdi mdi-human-female me-1"></i> اسم الأم</label>
+                            <p class="form-control-static">@(Model?.STU_MTHR ?? "غير متوفر")</p>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label text-muted"><i class="mdi mdi-account me-1"></i> الاسم المستعار</label>
+                            <p class="form-control-static">@(Model?.STU_NICK ?? "غير متوفر")</p>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label text-muted"><i class="mdi mdi-calendar me-1"></i> تاريخ الميلاد</label>
+                            <p class="form-control-static">@(Model?.STU_BRTH.ToString("yyyy-MM-dd") ?? "غير متوفر")</p>
+                        </div>
+                    </div>
+                    <!-- العمود الثاني -->
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label text-muted"><i class="mdi mdi-calendar-check me-1"></i> تاريخ الالتحاق</label>
+                            <p class="form-control-static">@(Model?.JOIN_DATE.ToString("yyyy-MM-dd") ?? "غير متوفر")</p>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label text-muted"><i class="mdi mdi-school me-1"></i> السنة الدراسية</label>
+                            <p class="form-control-static">@(Model?.STU_YEAR.ToString() ?? "غير متوفر")</p>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label text-muted"><i class="mdi mdi-shield-account me-1"></i> الحالة الدراسية</label>
+                            <p class="form-control-static">
+                                @(Model != null ? (Model.STU_STATE == "ناجح" ? "ناجح" : Model.STU_STATE == "منقول" ? "منقول" : Model.STU_STATE == "راسب" ? "راسب" : "غير معروف") : "غير متوفر")
+                            </p>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label text-muted"><i class="mdi mdi-flag me-1"></i> الجنسية</label>
+                            <p class="form-control-static">@(Model?.NATIONALITY ?? "غير متوفر")</p>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label text-muted"><i class="mdi mdi-percent me-1"></i> معدل الثانوية</label>
+                            <p class="form-control-static">@(Model?.BAC_AVG.ToString() ?? "غير متوفر")</p>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label text-muted"><i class="mdi mdi-account-group me-1"></i> نوع المفاضلة</label>
+                            <p class="form-control-static">@(Model?.COMPAR_TYPE ?? "غير متوفر")</p>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label text-muted"><i class="mdi mdi-door-open me-1"></i> رقم الفصل العملي</label>
+                            <p class="form-control-static">@(Model?.CLS_ID.ToString() ?? "غير متوفر")</p>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label text-muted"><i class="mdi mdi-gender-male-female me-1"></i> الجنس</label>
+                            <p class="form-control-static">@(Model?.STU_GENDER ?? "غير متوفر")</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إغلاق</button>
+            </div>
+        </div>
+    </div>
+</div>

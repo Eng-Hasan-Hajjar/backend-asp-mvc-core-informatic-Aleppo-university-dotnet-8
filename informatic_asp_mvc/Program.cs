@@ -1,4 +1,4 @@
-
+﻿
 using informatic_asp_mvc.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -8,6 +8,18 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+
+// إعداد التسجيل
+builder.Services.AddLogging(logging =>
+{
+    logging.ClearProviders();
+    logging.AddConsole(); // تسجيل في وحدة التحكم
+    logging.AddDebug();   // تسجيل في نافذة Debug
+});
+
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

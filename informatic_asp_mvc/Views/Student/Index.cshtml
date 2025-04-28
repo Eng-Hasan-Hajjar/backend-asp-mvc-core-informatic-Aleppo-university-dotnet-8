@@ -138,33 +138,48 @@
             });
 
             // معالجة إرسال الفورم
-         $('#createForm').on('submit', function (e) {
-            e.preventDefault();
+            $(document).on('submit', '#createForm', function (e) {
+                     e.preventDefault();
 
-            var form = $(this);
-            $.ajax({
-                url: form.attr('action'),
-                type: 'POST',
-                data: form.serialize(),
-                success: function (response) {
-                    if (response.success) {
-                        $('#studentModal').modal('hide');
-                        if (response.redirectUrl) {
-                            window.location.href = response.redirectUrl;
-                        }
-                    } else {
-                        $('#studentModal .modal-body').html(response);
-                        $.validator.unobtrusive.parse('#createForm');
-                    }
-                },
-                error: function (xhr) {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'خطأ',
-                        text: xhr.status === 500 ? xhr.responseJSON.error : 'حدث خطأ غير متوقع'
-                    });
-                }
-            });
+                     var form = $(this);
+                     $.ajax({
+                         url: form.attr('action'),
+                         type: 'POST',
+                         data: form.serialize(),
+                         success: function (response) {
+                             if (response.success) {
+                                 studentModal.hide();
+                                 Swal.fire({
+                                     icon: 'success',
+                                     title: 'تم الحفظ',
+                                     text: 'تم إضافة الطالب بنجاح',
+                                     showConfirmButton: false,
+                                     timer: 1500
+                                 }).then(() => {
+                                     if (response.redirectUrl) {
+                                         window.location.href = response.redirectUrl;
+                                     }
+                                 });
+                             } else {
+                                 $('#studentModal .modal-body').html(response);
+                                 $.validator.unobtrusive.parse('#createForm');
+                             }
+                         },
+                         error: function (xhr) {
+                             Swal.fire({
+                                 icon: 'error',
+                                 title: 'خطأ',
+                                 text: xhr.responseJSON?.error || 'حدث خطأ غير متوقع'
+                             });
+                         }
+                     });
+                 });
+
+
+
+
+
+
         });
 
 

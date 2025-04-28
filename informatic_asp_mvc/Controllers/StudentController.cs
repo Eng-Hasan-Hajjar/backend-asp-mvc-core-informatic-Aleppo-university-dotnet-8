@@ -24,16 +24,18 @@ namespace informatic_asp_mvc.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            return PartialView("_CreateModal", new Student()); // إرجاع مودل جديد
-
-         
+            return PartialView("_CreateModal", new Student());
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Student student)
         {
             if (!ModelState.IsValid)
             {
+                // تسجيل أخطاء التحقق
+                var errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage);
+                _logger.LogWarning("فشل التحقق من البيانات: {Errors}", string.Join(", ", errors));
                 return PartialView("_CreateModal", student);
             }
 
@@ -42,15 +44,17 @@ namespace informatic_asp_mvc.Controllers
                 // التحقق من التكرار
                 if (await _context.Students.AnyAsync(s => s.NATIONAL_NUMBER == student.NATIONAL_NUMBER))
                 {
-                    ModelState.AddModelError("NATIONAL_NUMBER", "الرقم الوطني مسجل مسبقاً");
+                    ModelState.AddModelError("NATIONAL_NUMBER", "الرقم الوطني مسجل مسبقًا");
                     return PartialView("_CreateModal", student);
                 }
 
+                // تسجيل البيانات التي سيتم حفظها
+                _logger.LogInformation("محاولة حفظ طالب جديد: {Student}", System.Text.Json.JsonSerializer.Serialize(student));
+
                 // حفظ البيانات
-                await _context.Students.AddAsync(student);
+                _context.Students.Add(student);
                 await _context.SaveChangesAsync();
 
-                // إرجاع استجابة JSON مع رابط التوجيه
                 return Json(new
                 {
                     success = true,
@@ -59,43 +63,26 @@ namespace informatic_asp_mvc.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "حدث خطأ أثناء الحفظ");
+                _logger.LogError(ex, "حدث خطأ أثناء حفظ الطالب: {Message}", ex.Message);
                 return Json(new
                 {
                     success = false,
-                    error = "حدث خطأ غير متوقع. يرجى المحاولة مرة أخرى."
+                    error = "حدث خطأ أثناء الحفظ: " + ex.Message
                 });
             }
         }
 
-
-
+        // باقي الإجراءات كما هي
+        [HttpGet]
         public IActionResult Edit(int id)
         {
             var student = _context.Students.Find(id);
-            return View(student);
-        }
-
-        [HttpPost]
-        public IActionResult Edit(Student student)
-        {
-            if (ModelState.IsValid)
+            if (student == null)
             {
-                _context.Students.Update(student);
-                _context.SaveChanges();
-                return RedirectToAction("Index");
+                return NotFound();
             }
             return View(student);
         }
-
-        public IActionResult Delete(int id)
-        {
-            var student = _context.Students.Find(id);
-            _context.Students.Remove(student);
-            _context.SaveChanges();
-            return RedirectToAction("Index");
-        }
-   
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -112,6 +99,7 @@ namespace informatic_asp_mvc.Controllers
                 {
                     _context.Update(student);
                     await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -121,9 +109,32 @@ namespace informatic_asp_mvc.Controllers
                     }
                     throw;
                 }
-                return RedirectToAction(nameof(Index));
             }
             return View(student);
+        }
+
+        [HttpGet]
+        public IActionResult Delete(int id)
+        {
+            var student = _context.Students.Find(id);
+            if (student == null)
+            {
+                return NotFound();
+            }
+            return View(student);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public IActionResult DeleteConfirmed(int id)
+        {
+            var student = _context.Students.Find(id);
+            if (student != null)
+            {
+                _context.Students.Remove(student);
+                _context.SaveChanges();
+            }
+            return RedirectToAction(nameof(Index));
         }
 
         private bool StudentExists(int id)

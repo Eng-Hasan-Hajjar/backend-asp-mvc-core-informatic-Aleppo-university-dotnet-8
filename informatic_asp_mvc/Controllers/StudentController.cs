@@ -108,6 +108,8 @@ namespace informatic_asp_mvc.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, Student student)
         {
+            _logger.LogInformation("Received Edit request for student with ID: {StudentId}", id);
+            _logger.LogInformation("Student data: {Student}", System.Text.Json.JsonSerializer.Serialize(student));
             if (id != student.STU_ID)
             {
                 return Json(new { success = false, error = "معرف الطالب غير صحيح" });
@@ -159,28 +161,31 @@ namespace informatic_asp_mvc.Controllers
         }
 
 
-        [HttpGet]
-        public IActionResult Delete(int id)
-        {
-            var student = _context.Students.Find(id);
-            if (student == null)
-            {
-                return NotFound();
-            }
-            return View(student);
-        }
-
-        [HttpPost, ActionName("Delete")]
+        [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult DeleteConfirmed(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            var student = _context.Students.Find(id);
-            if (student != null)
+            try
             {
+                _logger.LogInformation("Attempting to delete student with ID: {StudentId}", id);
+                var student = await _context.Students.FindAsync(id);
+                if (student == null)
+                {
+                    _logger.LogWarning("Student with ID: {StudentId} not found", id);
+                    return Json(new { success = false, error = "الطالب غير موجود" });
+                }
+
                 _context.Students.Remove(student);
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
+                _logger.LogInformation("Student with ID: {StudentId} deleted successfully", id);
+
+                return Json(new { success = true });
             }
-            return RedirectToAction(nameof(Index));
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error occurred while deleting student with ID: {StudentId}", id);
+                return Json(new { success = false, error = "حدث خطأ أثناء الحذف: " + ex.Message });
+            }
         }
 
         private bool StudentExists(int id)

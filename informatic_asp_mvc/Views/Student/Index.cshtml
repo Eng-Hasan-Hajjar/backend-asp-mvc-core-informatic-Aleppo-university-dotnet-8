@@ -5,8 +5,8 @@
 }
 
 <div class="main-content" dir="rtl" style="margin-right: 2px; padding: 20px;">
+    @Html.AntiForgeryToken()
 
-  
     <button type="button"
             class="btn btn-custom"
             data-bs-toggle="modal"
@@ -39,7 +39,6 @@
                     <th scope="col" class="text-center">الإجراءات</th>
                 </tr>
             </thead>
-
             <tbody>
                 @foreach (var student in Model)
                 {
@@ -58,18 +57,15 @@
                         </td>
                         <td class="text-center">
                             <div class="d-flex justify-content-center gap-2">
-                                <button type="button" class="btn btn-sm btn-warning btn-edit" data-id="@student.STU_ID" data-bs-toggle="tooltip" title="تعديل">
+                                <button type="button" class="btn btn-sm btn-action btn-edit" data-id="@student.STU_ID" data-bs-toggle="tooltip" title="تعديل">
                                     <i class="mdi mdi-pencil"></i>
                                 </button>
-                                <button type="button" class="btn btn-info btn-sm btn-details" data-id="@student.STU_ID" data-bs-toggle="modal" title="تفاصيل">
-                                    <i class="fas fa-eye"></i>
+                                <button type="button" class="btn btn-sm btn-action btn-details" data-id="@student.STU_ID" data-bs-toggle="modal" title="تفاصيل">
+                                    <i class="mdi mdi-eye"></i>
                                 </button>
-
-
-
-                                <a asp-action="Delete" asp-route-id="@student.STU_ID" class="btn btn-sm btn-danger" data-bs-toggle="tooltip" title="حذف">
+                                <button type="button" class="btn btn-sm btn-action btn-delete" data-id="@student.STU_ID" data-bs-toggle="tooltip" title="حذف">
                                     <i class="mdi mdi-delete"></i>
-                                </a>
+                                </button>
                             </div>
                         </td>
                     </tr>
@@ -101,6 +97,54 @@
         }
     }
 }
+
+<style>
+    .btn-action {
+        width: 36px;
+        height: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        transition: all 0.3s ease;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+        .btn-action i {
+            font-size: 16px;
+        }
+
+    .btn-edit {
+        background-color: #f7c948;
+        color: #fff;
+    }
+
+        .btn-edit:hover {
+            background-color: #e0b73e;
+            transform: scale(1.1);
+        }
+
+    .btn-details {
+        background-color: #4a90e2;
+        color: #fff;
+    }
+
+        .btn-details:hover {
+            background-color: #3d7dc4;
+            transform: scale(1.1);
+        }
+
+    .btn-delete {
+        background-color: #e74c3c;
+        color: #fff;
+    }
+
+        .btn-delete:hover {
+            background-color: #c93e32;
+            transform: scale(1.1);
+        }
+</style>
+
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
@@ -220,11 +264,23 @@
             $(document).on('submit', '#editForm', function (e) {
                 e.preventDefault();
                 var form = $(this);
+                var studentId = $('#STU_ID').val();
+                if (!studentId) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'خطأ',
+                        text: 'معرف الطالب غير موجود'
+                    });
+                    return;
+                }
+                var formData = form.serialize();
+                console.log('Form Data:', formData); // تسجيل البيانات المرسلة
                 $.ajax({
-                    url: form.attr('action'),
+                    url: '@Url.Action("Edit", "Student")/' + studentId,
                     type: 'POST',
-                    data: form.serialize(),
+                    data: formData,
                     success: function (response) {
+                        console.log('Response:', response); // تسجيل الاستجابة
                         if (response.success) {
                             editModal.hide();
                             Swal.fire({
@@ -258,6 +314,7 @@
                         }
                     },
                     error: function (xhr) {
+                        console.log('Error:', xhr); // تسجيل الخطأ
                         Swal.fire({
                             icon: 'error',
                             title: 'خطأ',
@@ -289,6 +346,62 @@
                 });
             });
 
+            // معالج زر الحذف
+            $(document).on('click', '.btn-delete', function () {
+                var studentId = $(this).data('id');
+                var row = $(this).closest('tr'); // الحصول على الصف الذي يحتوي على الطالب
+
+                Swal.fire({
+                    title: 'هل أنت متأكد؟',
+                    text: 'لن تتمكن من استرجاع هذا الطالب بعد الحذف!',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: 'نعم، احذف!',
+                    cancelButtonText: 'إلغاء'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            url: '@Url.Action("Delete", "Student")/' + studentId,
+                            type: 'POST',
+                            data: {
+                                id: studentId,
+                                __RequestVerificationToken: $('input[name="__RequestVerificationToken"]').val()
+                            },
+                            success: function (response) {
+                                if (response.success) {
+                                    row.remove(); // إزالة الصف من الجدول ديناميكيًا
+                                    Swal.fire({
+                                        icon: 'success',
+                                        title: 'تم الحذف',
+                                        text: 'تم حذف الطالب بنجاح',
+                                        showConfirmButton: false,
+                                        timer: 1500
+                                    });
+                                    // تحديث عدد النتائج في الفوتر
+                                    var totalRows = $('tbody tr').length;
+                                    $('.d-flex.justify-content-between div:first-child').text(`عرض 1-${totalRows} من ${totalRows} نتيجة`);
+                                } else {
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: 'خطأ',
+                                        text: response.error || 'فشل في حذف الطالب'
+                                    });
+                                }
+                            },
+                            error: function (xhr) {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'خطأ',
+                                    text: xhr.responseJSON?.error || 'حدث خطأ غير متوقع'
+                                });
+                            }
+                        });
+                    }
+                });
+            });
+
             // إعادة تعيين مودال الإضافة عند الإغلاق
             $(document).on('hidden.bs.modal', '#studentModal', function () {
                 $(this).remove(); // إزالة الموديل من DOM
@@ -303,6 +416,9 @@
             $(document).on('hidden.bs.modal', '#detailsModal', function () {
                 $(this).remove(); // إزالة الموديل من DOM
             });
+
+            // تهيئة الـ Tooltips
+            $('[data-bs-toggle="tooltip"]').tooltip();
         });
     </script>
 }
